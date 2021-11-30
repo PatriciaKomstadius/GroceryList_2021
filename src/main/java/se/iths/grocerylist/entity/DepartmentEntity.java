@@ -13,7 +13,7 @@ public class DepartmentEntity {
     private String departmentName;
 
     @ManyToOne
-    private LayoutEntity layoutEntity;
+    private LayoutEntity layout;
 
 
     @OneToMany(mappedBy = "departments", cascade = CascadeType.ALL)
@@ -22,9 +22,9 @@ public class DepartmentEntity {
     public DepartmentEntity() {
     }
 
-    public DepartmentEntity(String departmentName, LayoutEntity layoutEntity) {
+    public DepartmentEntity(String departmentName, LayoutEntity layout) {
         this.departmentName = departmentName;
-        this.layoutEntity = layoutEntity;
+        this.layout = layout;
     }
 
     public List<ProductEntity> getProducts() {
@@ -51,11 +51,11 @@ public class DepartmentEntity {
         this.departmentName = departmentName;
     }
 
-    public LayoutEntity getLayoutEntity() {
-        return layoutEntity;
+    public LayoutEntity getLayout() {
+        return layout;
     }
 
-    public void setLayoutEntity(LayoutEntity layoutEntity) {
-        this.layoutEntity = layoutEntity;
+    public void setLayout(LayoutEntity layoutEntity) {
+        this.layout = layoutEntity;
     }
 }
