@@ -1,5 +1,7 @@
 package se.iths.grocerylist.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,7 @@ public class RoleEntity {
     @OneToMany
     private List<UserEntity> users = new ArrayList<>();
 
+    @JsonIgnore
     public List<UserEntity> getUsers() {
         return users;
     }
