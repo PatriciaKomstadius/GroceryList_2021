@@ -27,7 +27,7 @@ public class GroceryListController {
     }
 
     //GET id
-    @GetMapping({"id"})
+    @GetMapping("{id}")
     public ResponseEntity<Optional<GroceryListEntity>> getGrocerylistById(@PathVariable Long id) {
         Optional<GroceryListEntity> getList = groceryListService.getGroceryListById(id);
 
