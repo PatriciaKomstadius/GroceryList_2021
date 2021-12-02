@@ -1,8 +1,5 @@
 package se.iths.grocerylist.controller;
 
-import com.fasterxml.jackson.databind.util.JSONWrappedObject;
-import org.springframework.boot.jackson.JsonObjectDeserializer;
-import org.springframework.boot.jackson.JsonObjectSerializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
