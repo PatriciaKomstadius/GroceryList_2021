@@ -1,6 +1,8 @@
 package se.iths.grocerylist.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
@@ -24,6 +26,7 @@ public class UserEntity {
     @ManyToOne
     private RoleEntity roleEntity;
 
+    @JsonIgnore
     public Set<GroceryListEntity> getGroceries() {
         return groceries;
     }

@@ -1,5 +1,7 @@
 package se.iths.grocerylist.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,7 @@ public class DepartmentEntity {
     private LayoutEntity layout;
 
 
-    @OneToMany(mappedBy = "departments", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private List<ProductEntity> products = new ArrayList<>();
 
     public DepartmentEntity() {
@@ -25,8 +27,11 @@ public class DepartmentEntity {
     public DepartmentEntity(String departmentName, LayoutEntity layout) {
         this.departmentName = departmentName;
         this.layout = layout;
+
+ 
     }
 
+    @JsonIgnore
     public List<ProductEntity> getProducts() {
         return products;
     }
