@@ -30,8 +30,7 @@ public class RoleService {
 
     //Är denna nödvändig?? Finns bara rollnamn att uppdatera
     public RoleEntity updateRole(RoleEntity role){
-        roleRepository.save(role);
-        return role;
+        return roleRepository.save(role);
     }
 
     public Optional<RoleEntity>updateRoleName(Long id, String roleName){

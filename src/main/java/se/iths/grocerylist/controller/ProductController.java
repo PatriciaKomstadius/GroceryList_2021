@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.iths.grocerylist.entity.ProductEntity;
+import se.iths.grocerylist.entity.UserEntity;
 import se.iths.grocerylist.service.ProductService;
 
 import java.util.Optional;
@@ -42,6 +43,13 @@ public class ProductController {
         Iterable<ProductEntity> products = productService.findAllProducts();
 
         return new ResponseEntity<>(products, HttpStatus.FOUND);
+    }
+
+    //PUT
+    @PutMapping()
+    public ResponseEntity<ProductEntity>updateProduct(@RequestBody ProductEntity product){
+        ProductEntity updatedProduct = productService.updateProduct(product);
+        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
     }
 
     //PATCH

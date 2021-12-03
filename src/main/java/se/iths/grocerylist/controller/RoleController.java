@@ -39,14 +39,14 @@ public class RoleController {
     }
 
     @PutMapping()
-    public ResponseEntity<RoleEntity>updateRole(RoleEntity role){
+    public ResponseEntity<RoleEntity>updateRole(@RequestBody RoleEntity role){
         RoleEntity updatedRole = roleService.updateRole(role);
         return new ResponseEntity<>(updatedRole, HttpStatus.OK);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity<Optional<RoleEntity>> updateRoleName(@PathVariable Long id, @RequestBody ProductEntity newProductName){
-        Optional<RoleEntity>updatedRole = roleService.updateRoleName(id, newProductName.getProductName());
+    public ResponseEntity<Optional<RoleEntity>> updateRoleName(@PathVariable Long id, @RequestBody RoleEntity newUpdatedRole){
+        Optional<RoleEntity>updatedRole = roleService.updateRoleName(id, newUpdatedRole.getRoleName());
         return new ResponseEntity<>(updatedRole, HttpStatus.OK);
     }
 

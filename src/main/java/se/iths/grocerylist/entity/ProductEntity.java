@@ -32,7 +32,9 @@ public class ProductEntity {
         this.department = department;
     }
 
+
     public Long getId() {
+        System.out.println();
         return id;
     }
 
