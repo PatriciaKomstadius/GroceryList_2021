@@ -24,9 +24,11 @@ public class DepartmentEntity {
     public DepartmentEntity() {
     }
 
-    public DepartmentEntity(String departmentName, LayoutEntity layoutEntity) {
+    public DepartmentEntity(String departmentName, LayoutEntity layout) {
         this.departmentName = departmentName;
-        this.layout = layoutEntity;
+        this.layout = layout;
+
+ 
     }
 
     @JsonIgnore

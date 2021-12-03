@@ -16,7 +16,7 @@ public class ProductEntity {
     private String category;
 
     @ManyToOne
-    private DepartmentEntity department;
+    private DepartmentEntity departments;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<GroceryListEntity> groceries = new ArrayList<>();
@@ -25,11 +25,11 @@ public class ProductEntity {
     public ProductEntity() {
     }
 
-    public ProductEntity(String productName, double price, String category, DepartmentEntity department) {
+    public ProductEntity(String productName, double price, String category, DepartmentEntity departments) {
         this.productName = productName;
         this.price = price;
         this.category = category;
-        this.department = department;
+        this.departments = departments;
     }
 
     public Long getId() {
@@ -65,10 +65,10 @@ public class ProductEntity {
     }
 
     public DepartmentEntity getDepartment() {
-        return department;
+        return departments;
     }
 
-    public void setDepartment(DepartmentEntity department) {
-        this.department = department;
+    public void setDepartment(DepartmentEntity departments) {
+        this.departments = departments;
     }
 }

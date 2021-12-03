@@ -15,6 +15,13 @@ public class GroceryListEntity {
     private Long id;
     private String name;
 
+    public GroceryListEntity(String name, Set<UserEntity> users, ProductEntity products, ProductEntity product) {
+        this.name = name;
+        this.users = users;
+        this.products = products;
+        this.product = product;
+    }
+
     @ManyToMany(mappedBy = "groceries", cascade = CascadeType.ALL)
     private Set<UserEntity> users;
 
@@ -52,6 +59,14 @@ public class GroceryListEntity {
 
     public void setUsers(Set<UserEntity> users) {
         this.users = users;
+    }
+
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private ProductEntity product;
+
+    public GroceryListEntity() {
     }
 
     public ProductEntity getProduct() {
