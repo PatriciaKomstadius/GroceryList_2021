@@ -4,7 +4,6 @@ package se.iths.grocerylist.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import se.iths.grocerylist.dto.LayoutDto;
 import se.iths.grocerylist.entity.LayoutEntity;
 import se.iths.grocerylist.service.LayoutService;
 
