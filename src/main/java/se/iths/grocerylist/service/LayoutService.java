@@ -32,6 +32,7 @@ public class LayoutService {
 
     //Update type
     public Optional<LayoutEntity> updateTypeOfLayout(Long id, String type){
+
       Optional<LayoutEntity> foundLayout = layoutRepository.findById(id);
 
       foundLayout.get().setType(type);
