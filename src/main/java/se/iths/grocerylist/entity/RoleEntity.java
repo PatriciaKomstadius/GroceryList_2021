@@ -19,6 +19,13 @@ public class RoleEntity {
     @OneToMany
     private List<UserEntity> users = new ArrayList<>();
 
+    public RoleEntity() {
+    }
+
+    public RoleEntity(String roleName) {
+        this.roleName = roleName;
+    }
+
     @JsonIgnore
     public List<UserEntity> getUsers() {
         return users;
@@ -26,13 +33,6 @@ public class RoleEntity {
 
     public void setUsers(List<UserEntity> users) {
         this.users = users;
-    }
-
-    public RoleEntity() {
-    }
-
-    public RoleEntity(String roleName) {
-        this.roleName = roleName;
     }
 
     public Long getId() {

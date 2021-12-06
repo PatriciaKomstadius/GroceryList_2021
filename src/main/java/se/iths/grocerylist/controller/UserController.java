@@ -3,6 +3,7 @@ package se.iths.grocerylist.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.iths.grocerylist.entity.RoleEntity;
 import se.iths.grocerylist.entity.UserEntity;
 import se.iths.grocerylist.service.UserService;
 
@@ -19,7 +20,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping()
+    @PostMapping("signup")
     public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity user){
         UserEntity createdUser = userService.createUser(user);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);

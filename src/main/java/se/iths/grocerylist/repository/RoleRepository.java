@@ -7,4 +7,5 @@ import se.iths.grocerylist.entity.RoleEntity;
 
 @Repository
 public interface RoleRepository extends CrudRepository<RoleEntity, Long> {
+    RoleEntity findByRoleName(String role);
 }
