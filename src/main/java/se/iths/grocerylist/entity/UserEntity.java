@@ -24,24 +24,8 @@ public class UserEntity {
     private Set<GroceryListEntity> groceries = new HashSet<>();
 
     @ManyToOne
-    private RoleEntity roleEntity;
+    private RoleEntity role;
 
-    @JsonIgnore
-    public Set<GroceryListEntity> getGroceries() {
-        return groceries;
-    }
-
-    public void setGroceries(Set<GroceryListEntity> groceries) {
-        this.groceries = groceries;
-    }
-
-    public RoleEntity getRoleEntity() {
-        return roleEntity;
-    }
-
-    public void setRoleEntity(RoleEntity roleEntity) {
-        this.roleEntity = roleEntity;
-    }
 
     public UserEntity() {
     }
@@ -52,6 +36,25 @@ public class UserEntity {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
+    }
+
+
+
+    @JsonIgnore
+    public Set<GroceryListEntity> getGroceries() {
+        return groceries;
+    }
+
+    public void setGroceries(Set<GroceryListEntity> groceries) {
+        this.groceries = groceries;
+    }
+
+    public RoleEntity getRole() {
+        return role;
+    }
+
+    public void setRole(RoleEntity role) {
+        this.role = role;
     }
 
     public Long getId() {

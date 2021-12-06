@@ -14,6 +14,7 @@ public class ProductEntity {
     private String productName;
     private double price;
     private String category;
+    private int quantity;
 
     @ManyToOne
     private DepartmentEntity department;
@@ -25,11 +26,11 @@ public class ProductEntity {
     public ProductEntity() {
     }
 
-    public ProductEntity(String productName, double price, String category, DepartmentEntity departments) {
+    public ProductEntity(String productName, double price, String category, int quantity) {
         this.productName = productName;
         this.price = price;
         this.category = category;
-        this.department = department;
+        this.quantity = quantity;
     }
 
 
