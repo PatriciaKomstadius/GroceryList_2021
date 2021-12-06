@@ -1,8 +1,5 @@
 package se.iths.grocerylist.controller;
 
-import com.fasterxml.jackson.databind.util.JSONWrappedObject;
-import org.springframework.boot.jackson.JsonObjectDeserializer;
-import org.springframework.boot.jackson.JsonObjectSerializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,9 +39,7 @@ public class UserController {
 
     @PutMapping()
     public ResponseEntity<UserEntity>updateUser(@RequestBody UserEntity user){
-  
         UserEntity updatedUser = userService.updateUser(user);
-
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 

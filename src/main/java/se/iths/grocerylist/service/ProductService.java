@@ -2,6 +2,7 @@ package se.iths.grocerylist.service;
 
 import org.springframework.stereotype.Service;
 import se.iths.grocerylist.entity.ProductEntity;
+import se.iths.grocerylist.entity.UserEntity;
 import se.iths.grocerylist.repository.ProductRepository;
 
 import java.util.Optional;
@@ -9,34 +10,38 @@ import java.util.Optional;
 @Service
 public class ProductService {
 
-    private final ProductRepository ProductRepository;
+    private final ProductRepository productRepository;
 
-    public ProductService(ProductRepository ProductRepository) {
-        this.ProductRepository = ProductRepository;
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     //Create
-    public ProductEntity createProduct(ProductEntity Product) {
-        return ProductRepository.save(Product);
+    public ProductEntity createProduct(ProductEntity product) {
+        return productRepository.save(product);
     }
 
     //Read id
     public Optional<ProductEntity> findProductById(Long id) {
-        return ProductRepository.findById(id);
+        return productRepository.findById(id);
     }
 
     //Read all
     public Iterable<ProductEntity> findAllProducts(){
-        return ProductRepository.findAll();
+        return productRepository.findAll();
     }
 
-    //Update type
+    public ProductEntity updateProduct(ProductEntity product){
+        return productRepository.save(product);
+    }
+
+    //Update price
     public Optional<ProductEntity> updatePriceOfProduct(Long id, double price){
 
-        Optional<ProductEntity> foundProduct = ProductRepository.findById(id);
+        Optional<ProductEntity> foundProduct = productRepository.findById(id);
 
         foundProduct.get().setPrice(price);
-        ProductRepository.save(foundProduct.get());
+        productRepository.save(foundProduct.get());
 
         return foundProduct;
     }
@@ -44,9 +49,9 @@ public class ProductService {
     //Delete
     public Optional<ProductEntity> deleteProduct(Long id){
 
-        Optional<ProductEntity> deleteProduct = ProductRepository.findById(id);
+        Optional<ProductEntity> deleteProduct = productRepository.findById(id);
 
-        ProductRepository.deleteById(deleteProduct.get().getId());
+        productRepository.deleteById(deleteProduct.get().getId());
         return deleteProduct;
     }
 }

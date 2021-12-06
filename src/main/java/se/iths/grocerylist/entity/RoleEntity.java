@@ -31,9 +31,8 @@ public class RoleEntity {
     public RoleEntity() {
     }
 
-    public RoleEntity(String roleName, List<UserEntity> users) {
+    public RoleEntity(String roleName) {
         this.roleName = roleName;
-        this.users = users;
     }
 
     public Long getId() {

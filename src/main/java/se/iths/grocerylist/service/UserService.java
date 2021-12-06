@@ -28,9 +28,7 @@ public class UserService {
     }
 
     public UserEntity updateUser(UserEntity user){
-        userRepository.save(user);
-
-        return user;
+        return userRepository.save(user);
     }
 
     public Optional<UserEntity> updateUserEmail(Long id, String email){
