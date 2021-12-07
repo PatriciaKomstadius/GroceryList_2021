@@ -42,7 +42,7 @@ public class UserService {
 
     public Optional<UserEntity> updateUserEmail(Long id, String email){
         Optional<UserEntity> foundUser = userRepository.findById(id);
-        foundUser.get().setMail(email);
+        foundUser.get().setEmail(email);
         userRepository.save(foundUser.get());
         return foundUser;
 

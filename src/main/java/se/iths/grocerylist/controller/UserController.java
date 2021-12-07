@@ -3,11 +3,10 @@ package se.iths.grocerylist.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import se.iths.grocerylist.entity.RoleEntity;
 import se.iths.grocerylist.entity.UserEntity;
+import se.iths.grocerylist.exception.EntityNotFoundException;
 import se.iths.grocerylist.service.UserService;
 
-import javax.annotation.security.DenyAll;
 import java.util.Optional;
 
 @RestController
@@ -22,14 +21,24 @@ public class UserController {
 
     @PostMapping("signup")
     public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity user){
-        UserEntity createdUser = userService.createUser(user);
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+
+          UserEntity createdUser = userService.createUser(user);
+          return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+
     }
 
     @GetMapping("{id}")
     public ResponseEntity<Optional<UserEntity>> findUserById(@PathVariable Long id){
-        Optional<UserEntity> foundUser = userService.findUserById(id);
-        return new ResponseEntity<>(foundUser, HttpStatus.FOUND);
+
+            Optional<UserEntity> foundUser = userService.findUserById(id);
+
+            if (foundUser.isEmpty()) {
+                throw new EntityNotFoundException("Fel");
+            }
+
+            return new ResponseEntity<>(foundUser, HttpStatus.FOUND);
+
+
     }
 
     @GetMapping()
@@ -46,7 +55,7 @@ public class UserController {
 
     @PatchMapping("{id}")
     public ResponseEntity<Optional<UserEntity>> updateUserEmail(@PathVariable Long id, @RequestBody UserEntity user){
-        Optional<UserEntity> updatedUser = userService.updateUserEmail(id, user.getMail());
+        Optional<UserEntity> updatedUser = userService.updateUserEmail(id, user.getEmail());
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
