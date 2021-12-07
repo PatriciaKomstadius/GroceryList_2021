@@ -29,6 +29,14 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(new ApiError(HttpStatus.NOT_FOUND, errorMessage, exception));
     }
 
+    @ExceptionHandler({BadRequestException.class})
+    public ResponseEntity<Object> badRequestException(BadRequestException exception) {
+        logger.info(exception.getClass().getName());
+        logger.error("Error: ", exception);
+        String errorMessage = "Status code 400, invalid request to server.";
+
+        return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, errorMessage, exception));
+    }
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(
@@ -37,6 +45,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         String errorMessage = "Malformed JSON request.";
         return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, errorMessage, exception));
     }
+
 
     @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleAll(Exception exception, WebRequest request) {
