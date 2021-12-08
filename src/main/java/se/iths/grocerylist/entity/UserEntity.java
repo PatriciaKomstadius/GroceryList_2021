@@ -1,10 +1,10 @@
+
 package se.iths.grocerylist.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,11 +14,15 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-   // @Column(nullable = false)
+
+
     private String username;
+
+
     private String email;
     private String firstName;
     private String lastName;
+
     private String password;
 
     @ManyToMany
