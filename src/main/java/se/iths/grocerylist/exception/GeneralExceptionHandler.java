@@ -36,6 +36,14 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
         return buildResponseEntity(new ApiError(HttpStatus.METHOD_NOT_ALLOWED, errorMessage, exception));
     }
+    @ExceptionHandler({UnauthorizedException.class})
+    public ResponseEntity<Object> unauthorizedException(UnauthorizedException exception) {
+        logger.info(exception.getClass().getName());
+        String errorMessage = "You are UnauthorizedException";
+
+        return buildResponseEntity(new ApiError(HttpStatus.UNAUTHORIZED, errorMessage, exception));
+    }
+
 
     @ExceptionHandler({BadRequestException.class})
     public ResponseEntity<Object> badRequestException(BadRequestException exception) {
