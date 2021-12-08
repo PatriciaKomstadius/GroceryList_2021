@@ -39,7 +39,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({UnauthorizedException.class})
     public ResponseEntity<Object> unauthorizedException(UnauthorizedException exception) {
         logger.info(exception.getClass().getName());
-        String errorMessage = "You are UnauthorizedException";
+        String errorMessage = "You are Unauthorized";
 
         return buildResponseEntity(new ApiError(HttpStatus.UNAUTHORIZED, errorMessage, exception));
     }
@@ -48,7 +48,6 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({BadRequestException.class})
     public ResponseEntity<Object> badRequestException(BadRequestException exception) {
         logger.info(exception.getClass().getName());
-        logger.error("Error: ", exception);
         String errorMessage = "Status code 400, invalid request to server.";
 
         return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, errorMessage, exception));
@@ -64,7 +63,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     @ExceptionHandler({Exception.class})
-    public ResponseEntity<Object> handleAll(Exception exception, WebRequest request) {
+    public ResponseEntity<Object> handleAll(Exception exception) {
         logger.info(exception.getClass().getName());
         logger.error("Error: ", exception);
         String errorMessage = "An unexpected error occurred.";

@@ -4,9 +4,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.iths.grocerylist.entity.UserEntity;
+import se.iths.grocerylist.exception.BadRequestException;
 import se.iths.grocerylist.exception.EntityNotFoundException;
 import se.iths.grocerylist.service.UserService;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -21,9 +23,14 @@ public class UserController {
 
     @PostMapping("signup")
     public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity user){
+        if(user.getUsername()==null || user.getUsername().isEmpty()){
 
-          UserEntity createdUser = userService.createUser(user);
-          return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+            throw new BadRequestException("empty Username");
+
+        }
+
+        UserEntity createdUser = userService.createUser(user);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
 
     }
 
@@ -52,6 +59,9 @@ public class UserController {
         UserEntity updatedUser = userService.updateUser(user);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
+
+
+
 
     @PatchMapping("{id}")
     public ResponseEntity<Optional<UserEntity>> updateUserEmail(@PathVariable Long id, @RequestBody UserEntity user){
