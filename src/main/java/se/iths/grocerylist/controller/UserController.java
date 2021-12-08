@@ -23,10 +23,19 @@ public class UserController {
 
     @PostMapping("signup")
     public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity user){
+
         if(user.getUsername()==null || user.getUsername().isEmpty()){
+            throw new BadRequestException("Empty Username");
+        }
 
-            throw new BadRequestException("empty Username");
+        if(user.getEmail()==null || user.getEmail().isEmpty()) {
 
+            throw new BadRequestException("Empty Email");
+        }
+
+        if(user.getPassword()==null || user.getPassword().isEmpty()) {
+
+            throw new BadRequestException("Empty Password");
         }
 
         UserEntity createdUser = userService.createUser(user);
