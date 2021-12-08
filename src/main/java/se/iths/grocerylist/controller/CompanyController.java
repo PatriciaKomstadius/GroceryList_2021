@@ -1,19 +1,17 @@
 package se.iths.grocerylist.controller;
 
-import com.fasterxml.jackson.databind.util.JSONWrappedObject;
-import org.springframework.boot.jackson.JsonObjectDeserializer;
-import org.springframework.boot.jackson.JsonObjectSerializer;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.iths.grocerylist.entity.CompanyEntity;
+import se.iths.grocerylist.exception.BadRequestException;
 import se.iths.grocerylist.service.CompanyService;
 
-import javax.annotation.security.DenyAll;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("companys")
+@RequestMapping("companies")
 public class CompanyController {
 
     private final CompanyService companyService;
@@ -24,6 +22,12 @@ public class CompanyController {
 
     @PostMapping()
     public ResponseEntity<CompanyEntity> createCompany(@RequestBody CompanyEntity company){
+        if (company.getCompanyName()==null || company.getCompanyName().isEmpty()){
+            throw new BadRequestException("Company Name is Empty");
+        }
+        if (company.getCity()==null || company.getCity().isEmpty()){
+            throw new BadRequestException("Company City is Empty");
+        }
         CompanyEntity createdCompany = companyService.createCompany(company);
         return new ResponseEntity<>(createdCompany, HttpStatus.CREATED);
     }
@@ -42,12 +46,21 @@ public class CompanyController {
 
     @PutMapping()
     public ResponseEntity<CompanyEntity>updateCompany(@RequestBody CompanyEntity company){
+        if (company.getCompanyName()==null || company.getCompanyName().isEmpty()){
+            throw new BadRequestException("Company Name is Empty");
+        }
+        if (company.getCity()==null || company.getCity().isEmpty()){
+            throw new BadRequestException("Company City is Empty");
+        }
         CompanyEntity updatedCompany = companyService.updateCompany(company);
         return new ResponseEntity<>(updatedCompany, HttpStatus.OK);
     }
 
     @PatchMapping("{id}")
     public ResponseEntity<Optional<CompanyEntity>> updateCompanyName(@PathVariable Long id, @RequestBody CompanyEntity company){
+        if (company.getCompanyName()==null || company.getCompanyName().isEmpty()){
+            throw new BadRequestException("Company Name is Empty");
+        }
         Optional<CompanyEntity> updatedCompany = companyService.updateCompanyName(id, company.getCompanyName());
         return new ResponseEntity<>(updatedCompany, HttpStatus.OK);
     }
