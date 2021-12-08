@@ -29,6 +29,14 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(new ApiError(HttpStatus.NOT_FOUND, errorMessage, exception));
     }
 
+    @ExceptionHandler({MethodNotAllowedException.class})
+    public ResponseEntity<Object> methodNotAllowedException(MethodNotAllowedException exception) {
+        logger.info(exception.getClass().getName());
+        String errorMessage = "Method is not allowed";
+
+        return buildResponseEntity(new ApiError(HttpStatus.METHOD_NOT_ALLOWED, errorMessage, exception));
+    }
+
     @ExceptionHandler({BadRequestException.class})
     public ResponseEntity<Object> badRequestException(BadRequestException exception) {
         logger.info(exception.getClass().getName());
