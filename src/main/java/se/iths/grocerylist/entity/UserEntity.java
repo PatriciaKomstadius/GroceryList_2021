@@ -2,10 +2,10 @@ package se.iths.grocerylist.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,8 +14,9 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+   // @Column(nullable = false)
     private String username;
-    private String mail;
+    private String email;
     private String firstName;
     private String lastName;
     private String password;
@@ -24,7 +25,21 @@ public class UserEntity {
     private Set<GroceryListEntity> groceries = new HashSet<>();
 
     @ManyToOne
-    private RoleEntity roleEntity;
+    private RoleEntity role;
+
+
+    public UserEntity() {
+    }
+
+    public UserEntity(String username, String email, String firstName, String lastName, String password) {
+        this.username = username;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+    }
+
+
 
     @JsonIgnore
     public Set<GroceryListEntity> getGroceries() {
@@ -35,23 +50,12 @@ public class UserEntity {
         this.groceries = groceries;
     }
 
-    public RoleEntity getRoleEntity() {
-        return roleEntity;
+    public RoleEntity getRole() {
+        return role;
     }
 
-    public void setRoleEntity(RoleEntity roleEntity) {
-        this.roleEntity = roleEntity;
-    }
-
-    public UserEntity() {
-    }
-
-    public UserEntity(String username, String mail, String firstName, String lastName, String password) {
-        this.username = username;
-        this.mail = mail;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
+    public void setRole(RoleEntity role) {
+        this.role = role;
     }
 
     public Long getId() {
@@ -70,12 +74,12 @@ public class UserEntity {
         this.username = username;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String mail) {
+        this.email = mail;
     }
 
     public String getFirstName() {
