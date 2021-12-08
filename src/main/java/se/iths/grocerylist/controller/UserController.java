@@ -3,9 +3,11 @@ package se.iths.grocerylist.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import se.iths.grocerylist.entity.UserEntity;
 import se.iths.grocerylist.exception.BadRequestException;
 import se.iths.grocerylist.exception.EntityNotFoundException;
+import se.iths.grocerylist.exception.UnauthorizedException;
 import se.iths.grocerylist.service.UserService;
 
 import javax.validation.Valid;
@@ -59,8 +61,10 @@ public class UserController {
 
     @GetMapping()
     public ResponseEntity<Iterable<UserEntity>> findAllUsers(){
-        Iterable<UserEntity> allUsers = userService.findAllUsers();
-        return new ResponseEntity<>(allUsers, HttpStatus.FOUND);
+
+            Iterable<UserEntity> allUsers = userService.findAllUsers();
+            return new ResponseEntity<>(allUsers, HttpStatus.FOUND);
+
     }
 
     @PutMapping()

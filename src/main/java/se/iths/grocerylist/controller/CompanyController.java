@@ -39,9 +39,9 @@ public class CompanyController {
     }
 
     @GetMapping()
-    public ResponseEntity<Iterable<CompanyEntity>> findAllCompanys(){
-        Iterable<CompanyEntity> allCompanys = companyService.findAllCompanys();
-        return new ResponseEntity<>(allCompanys, HttpStatus.FOUND);
+    public ResponseEntity<Iterable<CompanyEntity>> findAllCompanies(){
+        Iterable<CompanyEntity> allCompanies = companyService.findAllCompanies();
+        return new ResponseEntity<>(allCompanies, HttpStatus.FOUND);
     }
 
     @PutMapping()
