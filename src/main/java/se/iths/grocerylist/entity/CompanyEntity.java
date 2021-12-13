@@ -1,10 +1,7 @@
 package se.iths.grocerylist.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class CompanyEntity {
@@ -13,14 +10,18 @@ public class CompanyEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String companyName;
-    private String city;
+
+    @OneToOne
+    @JoinColumn(name= "companyInfoEntity_id", referencedColumnName = "id")
+    private CompanyInfoEntity companyInfoEntity;
+
 
     public CompanyEntity() {
     }
 
-    public CompanyEntity(String companyName, String city) {
+    public CompanyEntity(String companyName, CompanyInfoEntity companyInfoEntity) {
         this.companyName = companyName;
-        this.city = city;
+        this.companyInfoEntity = companyInfoEntity;
     }
 
     public Long getId() {
@@ -39,11 +40,11 @@ public class CompanyEntity {
         this.companyName = companyName;
     }
 
-    public String getCity() {
-        return city;
+    public CompanyInfoEntity getCompanyInfoEntity() {
+        return companyInfoEntity;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCompanyInfoEntity(CompanyInfoEntity city) {
+        this.companyInfoEntity = city;
     }
 }

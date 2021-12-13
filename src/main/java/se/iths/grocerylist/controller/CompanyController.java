@@ -25,10 +25,7 @@ public class CompanyController {
         if (company.getCompanyName()==null || company.getCompanyName().isEmpty()){
             throw new BadRequestException("Company Name is Empty");
         }
-        if (company.getCity()==null || company.getCity().isEmpty()){
-            throw new BadRequestException("Company City is Empty");
-        }
-        CompanyEntity createdCompany = companyService.createCompany(company);
+             CompanyEntity createdCompany = companyService.createCompany(company);
         return new ResponseEntity<>(createdCompany, HttpStatus.CREATED);
     }
 
@@ -49,9 +46,7 @@ public class CompanyController {
         if (company.getCompanyName()==null || company.getCompanyName().isEmpty()){
             throw new BadRequestException("Company Name is Empty");
         }
-        if (company.getCity()==null || company.getCity().isEmpty()){
-            throw new BadRequestException("Company City is Empty");
-        }
+
         CompanyEntity updatedCompany = companyService.updateCompany(company);
         return new ResponseEntity<>(updatedCompany, HttpStatus.OK);
     }
