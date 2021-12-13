@@ -24,7 +24,7 @@ public class CompanyService {
         return companyRepository.findById(id);
     }
 
-    public Iterable<CompanyEntity>findAllCompanys(){
+    public Iterable<CompanyEntity> findAllCompanies(){
         return companyRepository.findAll();
     }
 

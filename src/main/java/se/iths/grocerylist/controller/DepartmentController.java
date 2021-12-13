@@ -1,15 +1,13 @@
 package se.iths.grocerylist.controller;
 
-import com.fasterxml.jackson.databind.util.JSONWrappedObject;
-import org.springframework.boot.jackson.JsonObjectDeserializer;
-import org.springframework.boot.jackson.JsonObjectSerializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.iths.grocerylist.entity.DepartmentEntity;
+import se.iths.grocerylist.exception.BadRequestException;
 import se.iths.grocerylist.service.DepartmentService;
 
-import javax.annotation.security.DenyAll;
+
 import java.util.Optional;
 
 @RestController
@@ -24,8 +22,13 @@ public class DepartmentController {
 
     @PostMapping()
     public ResponseEntity<DepartmentEntity> createDepartment(@RequestBody DepartmentEntity department){
+
+        if (department.getDepartmentName()==null || department.getDepartmentName().isEmpty()){
+            throw new BadRequestException("Department Name is Empty");
+        }
         DepartmentEntity createdDepartment = departmentService.createDepartment(department);
         return new ResponseEntity<>(createdDepartment, HttpStatus.CREATED);
+
     }
 
     @GetMapping("{id}")
@@ -42,12 +45,19 @@ public class DepartmentController {
 
     @PutMapping()
     public ResponseEntity<DepartmentEntity>updateDepartment(@RequestBody DepartmentEntity department){
+
+        if (department.getDepartmentName()==null || department.getDepartmentName().isEmpty()){
+            throw new BadRequestException("Department Name is Empty");
+        }
         DepartmentEntity updatedDepartment = departmentService.updateDepartment(department);
         return new ResponseEntity<>(updatedDepartment, HttpStatus.OK);
     }
 
     @PatchMapping("{id}")
     public ResponseEntity<Optional<DepartmentEntity>> updateDepartmentEmail(@PathVariable Long id, @RequestBody DepartmentEntity department){
+        if (department.getDepartmentName()==null || department.getDepartmentName().isEmpty()){
+            throw new BadRequestException("Department Name is Empty");
+        }
         Optional<DepartmentEntity> updatedDepartment = departmentService.updateDepartmentName(id, department.getDepartmentName());
         return new ResponseEntity<>(updatedDepartment, HttpStatus.OK);
     }
