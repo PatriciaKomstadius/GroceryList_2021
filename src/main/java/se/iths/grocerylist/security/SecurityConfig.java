@@ -3,6 +3,7 @@ package se.iths.grocerylist.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,7 +35,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/", "/home", "/users/signup").permitAll()
-                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/grocerylists", "/mypage").hasAnyRole("CUSTOMER", "EMPLOYEE", "ADMIN")
+                .antMatchers(HttpMethod.GET, "/products").hasAnyRole("CUSTOMER", "EMPLOYEE", "ADMIN")
+                .antMatchers("/products").hasAnyRole("EMPLOYEE", "ADMIN")
+                .antMatchers("/admin", "/companies", "/companyinfo", "/departments", "/layouts", "/roles", "/users").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

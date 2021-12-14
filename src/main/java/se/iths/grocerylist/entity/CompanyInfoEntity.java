@@ -14,7 +14,8 @@ public class CompanyInfoEntity {
     private String address;
     private String zipCode;
     private String city;
-    @OneToOne(mappedBy = "companyInfoEntity", cascade = CascadeType.ALL)
+
+    @OneToOne(mappedBy = "companyInfoEntity")
     private CompanyEntity companyEntity;
 
     public CompanyInfoEntity(String orgnr, String address, String zipCode, String city) {
