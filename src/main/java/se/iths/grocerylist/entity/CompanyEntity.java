@@ -1,6 +1,8 @@
 package se.iths.grocerylist.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,7 +13,7 @@ public class CompanyEntity {
     private Long id;
     private String companyName;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name= "companyInfoEntity_id", referencedColumnName = "id")
     private CompanyInfoEntity companyInfoEntity;
 
@@ -40,6 +42,7 @@ public class CompanyEntity {
         this.companyName = companyName;
     }
 
+    @JsonIgnore
     public CompanyInfoEntity getCompanyInfoEntity() {
         return companyInfoEntity;
     }

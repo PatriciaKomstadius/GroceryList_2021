@@ -18,7 +18,8 @@ public class GroceryListApplication {
     public CommandLineRunner setUpRole(RoleRepository roleRepository){
         return (args) -> {
             roleRepository.save(new RoleEntity("ROLE_ADMIN"));
-            roleRepository.save(new RoleEntity("ROLE_USER"));
+            roleRepository.save(new RoleEntity("ROLE_EMPLOYEE"));
+            roleRepository.save(new RoleEntity("ROLE_CUSTOMER"));
 
         };
     }
