@@ -15,10 +15,10 @@ public class GroceryListEntity {
     private Long id;
     private String name;
 
-    @ManyToMany(mappedBy = "groceries", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "grocerylists", cascade = CascadeType.ALL)
     private Set<UserEntity> users;
 
-    @ManyToMany(mappedBy = "groceries", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "grocerylists", cascade = CascadeType.ALL)
     private Set<ProductEntity> products;
 
 

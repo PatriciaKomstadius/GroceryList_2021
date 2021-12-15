@@ -21,8 +21,7 @@ public class ProductEntity {
     @ManyToOne
     private DepartmentEntity department;
 
-    @ManyToMany(mappedBy = "products")
-
+    @ManyToMany
     private Set<GroceryListEntity> grocerylists = new HashSet<>();
 
 

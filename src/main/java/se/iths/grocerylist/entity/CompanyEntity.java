@@ -51,7 +51,7 @@ public class CompanyEntity {
         this.companyName = companyName;
     }
 
-    @JsonIgnore
+   // @JsonIgnore
     public CompanyInfoEntity getCompanyInfoEntity() {
         return companyInfoEntity;
     }

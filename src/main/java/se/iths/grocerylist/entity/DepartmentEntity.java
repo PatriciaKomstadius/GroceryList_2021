@@ -17,15 +17,14 @@ public class DepartmentEntity {
     @ManyToOne
     private LayoutEntity layout;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ProductEntity> products = new ArrayList<>();
 
     public DepartmentEntity() {
     }
 
-    public DepartmentEntity(String departmentName, LayoutEntity layout) {
+    public DepartmentEntity(String departmentName) {
         this.departmentName = departmentName;
-        this.layout = layout;
     }
 
     public void addProduct(ProductEntity product){

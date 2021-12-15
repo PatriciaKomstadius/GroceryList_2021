@@ -24,9 +24,8 @@ public class LayoutEntity {
     public LayoutEntity() {
     }
 
-    public LayoutEntity(String type, List<DepartmentEntity> departments) {
+    public LayoutEntity(String type) {
         this.type = type;
-        this.departments = departments;
     }
 
     public void addDepartment(DepartmentEntity department){

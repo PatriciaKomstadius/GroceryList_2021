@@ -1,5 +1,7 @@
 package se.iths.grocerylist.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Table(name = "company_info_entity")
@@ -71,6 +73,7 @@ public class CompanyInfoEntity {
         this.city = city;
     }
 
+    @JsonIgnore
     public CompanyEntity getCompanyEntity() {
         return companyEntity;
     }

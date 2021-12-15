@@ -4,7 +4,6 @@ package se.iths.grocerylist.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,7 +25,7 @@ public class UserEntity {
     private String password;
 
     @ManyToMany
-    private Set<GroceryListEntity> groceryLists = new HashSet<>();
+    private Set<GroceryListEntity> grocerylists = new HashSet<>();
 
     @ManyToOne
     private RoleEntity role;
@@ -44,12 +43,12 @@ public class UserEntity {
     }
 
     @JsonIgnore
-    public Set<GroceryListEntity> getGroceryLists() {
-        return groceryLists;
+    public Set<GroceryListEntity> getGrocerylists() {
+        return grocerylists;
     }
 
-    public void setGroceryLists(Set<GroceryListEntity> groceryLists) {
-        this.groceryLists = this.groceryLists;
+    public void setGrocerylists(Set<GroceryListEntity> groceryLists) {
+        this.grocerylists = this.grocerylists;
     }
 
 
@@ -57,8 +56,8 @@ public class UserEntity {
         return role;
     }
 
-    public void addGroceryList(GroceryListEntity groceryList){
-        groceryLists.add(groceryList);
+    public void addGroceryList(GroceryListEntity grocerylist){
+        grocerylists.add(grocerylist);
     }
 
     public void setRole(RoleEntity role) {
