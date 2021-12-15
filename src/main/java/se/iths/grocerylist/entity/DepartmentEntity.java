@@ -17,7 +17,6 @@ public class DepartmentEntity {
     @ManyToOne
     private LayoutEntity layout;
 
-
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private List<ProductEntity> products = new ArrayList<>();
 
@@ -27,8 +26,11 @@ public class DepartmentEntity {
     public DepartmentEntity(String departmentName, LayoutEntity layout) {
         this.departmentName = departmentName;
         this.layout = layout;
+    }
 
- 
+    public void addProduct(ProductEntity product){
+        products.add(product);
+        product.setDepartment(this);
     }
 
     @JsonIgnore

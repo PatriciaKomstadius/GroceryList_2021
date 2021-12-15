@@ -28,6 +28,10 @@ public class RoleEntity {
         this.roleName = roleName;
     }
 
+    public void addUser(UserEntity user){
+        users.add(user);
+    }
+
     @JsonIgnore
     public List<UserEntity> getUsers() {
         return users;

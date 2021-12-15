@@ -18,12 +18,28 @@ public class LayoutEntity {
     @OneToMany(mappedBy = "layout", cascade = CascadeType.ALL)
     private List<DepartmentEntity> departments = new ArrayList<>();
 
+    @ManyToOne
+    private CompanyEntity companyEntity;
+
     public LayoutEntity() {
     }
 
     public LayoutEntity(String type, List<DepartmentEntity> departments) {
         this.type = type;
         this.departments = departments;
+    }
+
+    public void addDepartment(DepartmentEntity department){
+        departments.add(department);
+        department.setLayout(this);
+    }
+
+    public CompanyEntity getCompanyEntity() {
+        return companyEntity;
+    }
+
+    public void setCompanyEntity(CompanyEntity companyEntity) {
+        this.companyEntity = companyEntity;
     }
 
     public Long getId() {

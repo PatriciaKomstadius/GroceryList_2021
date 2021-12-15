@@ -26,7 +26,7 @@ public class UserEntity {
     private String password;
 
     @ManyToMany
-    private Set<GroceryListEntity> groceries = new HashSet<>();
+    private Set<GroceryListEntity> groceryLists = new HashSet<>();
 
     @ManyToOne
     private RoleEntity role;
@@ -43,23 +43,27 @@ public class UserEntity {
         this.password = password;
     }
 
-
-
     @JsonIgnore
-    public Set<GroceryListEntity> getGroceries() {
-        return groceries;
+    public Set<GroceryListEntity> getGroceryLists() {
+        return groceryLists;
     }
 
-    public void setGroceries(Set<GroceryListEntity> groceries) {
-        this.groceries = groceries;
+    public void setGroceryLists(Set<GroceryListEntity> groceryLists) {
+        this.groceryLists = this.groceryLists;
     }
+
 
     public RoleEntity getRole() {
         return role;
     }
 
+    public void addGroceryList(GroceryListEntity groceryList){
+        groceryLists.add(groceryList);
+    }
+
     public void setRole(RoleEntity role) {
         this.role = role;
+        role.addUser(this);
     }
 
     public Long getId() {

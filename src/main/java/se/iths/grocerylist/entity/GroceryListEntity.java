@@ -18,8 +18,8 @@ public class GroceryListEntity {
     @ManyToMany(mappedBy = "groceries", cascade = CascadeType.ALL)
     private Set<UserEntity> users;
 
-    @ManyToOne
-    private ProductEntity product;
+    @ManyToMany(mappedBy = "groceries", cascade = CascadeType.ALL)
+    private Set<ProductEntity> products;
 
 
     public GroceryListEntity() {
@@ -29,6 +29,14 @@ public class GroceryListEntity {
         this.name = name;
     }
 
+    public void addProduct(ProductEntity product){
+        products.add(product);
+    }
+
+    public void addUser(UserEntity user){
+        users.add(user);
+        user.addGroceryList(this);
+    }
 
     public Long getId() {
         return id;
@@ -56,15 +64,11 @@ public class GroceryListEntity {
     }
 
 
-
-
-
-
-    public ProductEntity getProduct() {
-        return product;
+    public Set<ProductEntity> getProducts() {
+        return products;
     }
 
-    public void setProduct(ProductEntity product) {
-        this.product = product;
+    public void setProducts(Set<ProductEntity> products) {
+        this.products = products;
     }
 }

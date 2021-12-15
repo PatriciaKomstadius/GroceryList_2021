@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Component
 public class Sender {
-
+/*
     JmsTemplate jmsTemplate;
 
     public Sender(JmsTemplate jmsTemplate){
@@ -26,5 +26,8 @@ public class Sender {
         System.out.println("Message sent!");
 
     }
+
+
+ */
 
 }

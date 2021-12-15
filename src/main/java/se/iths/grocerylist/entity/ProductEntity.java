@@ -2,7 +2,9 @@ package se.iths.grocerylist.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class ProductEntity {
@@ -19,8 +21,9 @@ public class ProductEntity {
     @ManyToOne
     private DepartmentEntity department;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<GroceryListEntity> groceries = new ArrayList<>();
+    @ManyToMany(mappedBy = "products")
+
+    private Set<GroceryListEntity> grocerylists = new HashSet<>();
 
 
     public ProductEntity() {
@@ -33,6 +36,9 @@ public class ProductEntity {
         this.quantity = quantity;
     }
 
+    public void addGroceryList(GroceryListEntity grocerylist){
+       grocerylists.add(grocerylist);
+    }
 
     public Long getId() {
         System.out.println();

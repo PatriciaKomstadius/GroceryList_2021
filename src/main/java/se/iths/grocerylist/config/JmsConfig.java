@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 
 @Configuration
 public class JmsConfig {
+/*
     public static final String GROCERYLOGIN_QUEUE = "grocerylogin-queue";
 
     @Bean
@@ -35,5 +36,5 @@ public class JmsConfig {
 
     }
 
-
+ */
 }

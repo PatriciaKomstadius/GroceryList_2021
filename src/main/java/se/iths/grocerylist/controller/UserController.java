@@ -8,6 +8,7 @@ import se.iths.grocerylist.entity.UserEntity;
 import se.iths.grocerylist.exception.BadRequestException;
 import se.iths.grocerylist.exception.EntityNotFoundException;
 import se.iths.grocerylist.exception.UnauthorizedException;
+import se.iths.grocerylist.sender.Sender;
 import se.iths.grocerylist.service.UserService;
 
 import javax.validation.Valid;
@@ -18,9 +19,11 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+    //private final Sender sender;
 
     public UserController(UserService userService){
         this.userService = userService;
+       // this.sender = sender;
     }
 
     @PostMapping("signup")
@@ -40,6 +43,7 @@ public class UserController {
             throw new BadRequestException("Empty Password");
         }
 
+        //sender.sendMessage(user.getUsername());
         UserEntity createdUser = userService.createUser(user);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
 
