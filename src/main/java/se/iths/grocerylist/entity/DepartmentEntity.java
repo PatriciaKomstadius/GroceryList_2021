@@ -27,6 +27,7 @@ public class DepartmentEntity {
 
     public DepartmentEntity(String departmentName) {
         this.departmentName = departmentName;
+
     }
 
     public void addProduct(ProductEntity product){

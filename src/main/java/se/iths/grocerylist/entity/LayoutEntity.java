@@ -31,6 +31,13 @@ public class LayoutEntity {
     public void addDepartment(DepartmentEntity department){
         departments.add(department);
 
+        System.out.println("----------------------------------------------------------");
+        System.out.println(this.type);
+        for (DepartmentEntity d: departments
+             ) {
+            System.out.println( "SET " + d.getDepartmentName() );
+        }
+
             }
 
     public CompanyEntity getCompanyEntity() {
@@ -56,7 +63,6 @@ public class LayoutEntity {
     public void setType(String type) {
         this.type = type;
     }
-
 
 
     public Set<DepartmentEntity> getDepartments() {
