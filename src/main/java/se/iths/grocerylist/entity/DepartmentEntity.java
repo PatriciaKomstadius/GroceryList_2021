@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class DepartmentEntity {
@@ -14,8 +16,8 @@ public class DepartmentEntity {
     private Long id;
     private String departmentName;
 
-    @ManyToOne
-    private LayoutEntity layout;
+    @ManyToMany()
+    private Set<LayoutEntity> layouts = new HashSet<>();
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ProductEntity> products = new ArrayList<>();
@@ -25,12 +27,18 @@ public class DepartmentEntity {
 
     public DepartmentEntity(String departmentName) {
         this.departmentName = departmentName;
+
     }
 
     public void addProduct(ProductEntity product){
         products.add(product);
         product.setDepartment(this);
     }
+
+    public void addLayout(LayoutEntity layout){
+        layouts.add(layout);
+        layout.getDepartments().add(this);
+            }
 
     @JsonIgnore
     public List<ProductEntity> getProducts() {
@@ -57,11 +65,12 @@ public class DepartmentEntity {
         this.departmentName = departmentName;
     }
 
-    public LayoutEntity getLayout() {
-        return layout;
+@JsonIgnore
+    public Set<LayoutEntity> getLayouts() {
+        return layouts;
     }
 
-    public void setLayout(LayoutEntity layoutEntity) {
-        this.layout = layoutEntity;
+    public void setLayouts(Set<LayoutEntity> layout) {
+        this.layouts = layout;
     }
 }

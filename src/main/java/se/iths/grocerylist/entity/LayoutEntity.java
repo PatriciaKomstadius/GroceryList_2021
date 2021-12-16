@@ -3,8 +3,8 @@ package se.iths.grocerylist.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class LayoutEntity {
@@ -15,8 +15,8 @@ public class LayoutEntity {
     private Long id;
     private String type;
 
-    @OneToMany(mappedBy = "layout", cascade = CascadeType.ALL)
-    private List<DepartmentEntity> departments = new ArrayList<>();
+    @ManyToMany(mappedBy = "layouts",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<DepartmentEntity> departments = new HashSet<>();
 
     @ManyToOne
     private CompanyEntity companyEntity;
@@ -30,8 +30,15 @@ public class LayoutEntity {
 
     public void addDepartment(DepartmentEntity department){
         departments.add(department);
-        department.setLayout(this);
-    }
+
+        System.out.println("----------------------------------------------------------");
+        System.out.println(this.type);
+        for (DepartmentEntity d: departments
+             ) {
+            System.out.println( "SET " + d.getDepartmentName() );
+        }
+
+            }
 
     public CompanyEntity getCompanyEntity() {
         return companyEntity;
@@ -57,12 +64,12 @@ public class LayoutEntity {
         this.type = type;
     }
 
-    @JsonIgnore
-    public List<DepartmentEntity> getDepartments() {
+
+    public Set<DepartmentEntity> getDepartments() {
         return departments;
     }
 
-    public void setDepartments(List<DepartmentEntity> departments) {
+    public void setDepartments(Set<DepartmentEntity> departments) {
         this.departments = departments;
     }
 }
