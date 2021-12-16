@@ -84,7 +84,8 @@ public class ProductEntity {
         return department;
     }
 
-    public void setDepartment(DepartmentEntity departments) {
+    public void setDepartment(DepartmentEntity department) {
         this.department = department;
+
     }
 }
