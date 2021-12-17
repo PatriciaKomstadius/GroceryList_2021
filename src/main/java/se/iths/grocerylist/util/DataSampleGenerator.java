@@ -7,8 +7,10 @@ import org.springframework.stereotype.Component;
 import se.iths.grocerylist.entity.*;
 import se.iths.grocerylist.repository.*;
 
+import javax.transaction.Transactional;
 
-    @Component
+
+@Component
     public class DataSampleGenerator implements ApplicationRunner {
 
         private UserRepository userRepository;
@@ -32,6 +34,7 @@ import se.iths.grocerylist.repository.*;
             this.roleRepository = roleRepository;
         }
 
+        @Transactional
         public void run(ApplicationArguments args) {
 
             roleRepository.save(new RoleEntity("ROLE_ADMIN"));
@@ -61,20 +64,20 @@ import se.iths.grocerylist.repository.*;
 
             DepartmentEntity mejeri = departmentRepository.findByDepartmentName("Mejeri");
             mejeri.addProduct(arlamjolk);
-            departmentRepository.save(mejeri);
+//            departmentRepository.save(mejeri);
 
             DepartmentEntity fruktOchGront = departmentRepository.findByDepartmentName("Frukt och Grönt");
             fruktOchGront.addProduct(apelsin);
             fruktOchGront.addProduct(banan);
-            departmentRepository.save(fruktOchGront);
+//            departmentRepository.save(fruktOchGront);
 
             DepartmentEntity frys = departmentRepository.findByDepartmentName("Frys");
             frys.addProduct(lax);
-            departmentRepository.save(frys);
+//            departmentRepository.save(frys);
 
             DepartmentEntity chark = departmentRepository.findByDepartmentName("Chark");
             chark.addProduct(salami);
-            departmentRepository.save(chark);
+//            departmentRepository.save(chark);
 
 
             LayoutEntity maxi = layoutRepository.findByType("Maxi");
@@ -86,17 +89,18 @@ import se.iths.grocerylist.repository.*;
 
             LayoutEntity nara = layoutRepository.findByType("Nära");
             nara.addDepartment(mejeri);
-            nara.addDepartment(godis);
+//            nara.addDepartment(godis);
             nara.addDepartment(fruktOchGront);
             layoutRepository.save(nara);
 
-              /*
-            DepartmentEntity mejeri = new DepartmentEntity("mejeri");
-            ProductEntity mjölk = new ProductEntity("Arla Mjölk", 15.00, "Mjölkprodukter", 100);
-            mejeri.addProduct(mjölk);
-            departmentRepository.save(mejeri);
+//
+//            DepartmentEntity mejeri = new DepartmentEntity("mejeri");
+//            ProductEntity mjölk = new ProductEntity("Arla Mjölk", 15.00, "Mjölkprodukter", 100);
+//            mejeri.addProduct(mjölk);
+//            departmentRepository.save(mejeri);
 
-               */
+
+
 
             UserEntity findUser = userRepository.findByUsername("admin");
             RoleEntity roleToAdd = roleRepository.findByRoleName("ROLE_ADMIN");
