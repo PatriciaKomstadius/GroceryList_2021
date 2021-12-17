@@ -12,22 +12,20 @@ import java.util.UUID;
 @Component
 public class Sender {
 
+
     JmsTemplate jmsTemplate;
 
-    public Sender(JmsTemplate jmsTemplate){
+    public Sender(JmsTemplate jmsTemplate) {
         this.jmsTemplate = jmsTemplate;
     }
 
-    @Scheduled(fixedRate = 2000)
-    public void sendMessage(){
-        System.out.println("Sending message.....");
-        MessageObject messageObject = new MessageObject(UUID.randomUUID(), "Hello from GROCERYLOGIN", LocalDateTime.now());
+    public void sendMessage(String name) {
+        System.out.println("User created: " + name);
+        MessageObject messageObject = new MessageObject(UUID.randomUUID(), "User created: " + name, LocalDateTime.now());
         jmsTemplate.convertAndSend(JmsConfig.GROCERYLOGIN_QUEUE, messageObject);
         System.out.println("Message sent!");
 
     }
-
-
 
 
 }

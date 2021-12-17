@@ -19,11 +19,11 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
-    //private final Sender sender;
+    private final Sender sender;
 
-    public UserController(UserService userService){
+    public UserController(UserService userService, Sender sender){
         this.userService = userService;
-       // this.sender = sender;
+        this.sender = sender;
     }
 
     @PostMapping("signup")
@@ -43,7 +43,7 @@ public class UserController {
             throw new BadRequestException("Empty Password");
         }
 
-        //sender.sendMessage(user.getUsername());
+        sender.sendMessage(user.getUsername());
         UserEntity createdUser = userService.createUser(user);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
 
