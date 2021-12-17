@@ -30,6 +30,8 @@ public class LayoutEntity {
 
     public void addDepartment(DepartmentEntity department){
         departments.add(department);
+        department.getLayouts().add(this);
+
 
         System.out.println("----------------------------------------------------------");
         System.out.println(this.type);
