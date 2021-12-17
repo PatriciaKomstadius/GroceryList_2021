@@ -39,6 +39,17 @@ public class RoleEntity {
         return users;
     }
 
+//    public Set <String> getUserNames(){
+//        Set<String> userNames = new HashSet<>();
+//        for (String userNAme:
+//             ) {
+//
+//        }
+//
+//
+//        return
+//    }
+
     public void setUsers(Set<UserEntity> users) {
         this.users = users;
     }

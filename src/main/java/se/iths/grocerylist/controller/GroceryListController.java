@@ -4,10 +4,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.iths.grocerylist.entity.GroceryListEntity;
+import se.iths.grocerylist.entity.ProductEntity;
 import se.iths.grocerylist.exception.BadRequestException;
 import se.iths.grocerylist.exception.EntityNotFoundException;
 import se.iths.grocerylist.exception.MethodNotAllowedException;
+import se.iths.grocerylist.repository.ProductRepository;
 import se.iths.grocerylist.service.GroceryListService;
+import se.iths.grocerylist.service.ProductService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +21,11 @@ import java.util.Optional;
 public class GroceryListController {
 
     private final GroceryListService groceryListService;
+    private final ProductService productService;
 
-    public GroceryListController(GroceryListService groceryListService) {
+    public GroceryListController(GroceryListService groceryListService, ProductService productService) {
         this.groceryListService = groceryListService;
+        this.productService = productService;
     }
 
     //POST
@@ -35,6 +40,20 @@ public class GroceryListController {
 
         return new ResponseEntity<>(createdGrocerylist, HttpStatus.CREATED);
     }
+
+    @PostMapping("addproduct/{listname}/{productname}")
+    public ResponseEntity<GroceryListEntity>addProductToList(@PathVariable String listname, @PathVariable String productname){
+
+        ProductEntity foundProduct = productService.findProductByName(productname);
+
+        GroceryListEntity updatedList = groceryListService.addProductsToList(listname, foundProduct);
+
+        return new ResponseEntity<>(updatedList, HttpStatus.OK);
+
+
+
+    }
+
 
     //GET id
     @GetMapping("{id}")

@@ -9,7 +9,7 @@ import se.iths.grocerylist.model.MessageObject;
 @Component
 public class Receiver {
 
-    /*
+/*
     @JmsListener(destination = JmsConfig.GROCERYLOGIN_QUEUE)
     public void listen(@Payload MessageObject messageObject){
         System.out.println("I got a message");
@@ -17,6 +17,6 @@ public class Receiver {
     }
 
 
-     */
+*/
 
 }

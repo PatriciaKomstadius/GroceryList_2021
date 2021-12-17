@@ -2,7 +2,6 @@ package se.iths.grocerylist.service;
 
 import org.springframework.stereotype.Service;
 import se.iths.grocerylist.entity.ProductEntity;
-import se.iths.grocerylist.entity.UserEntity;
 import se.iths.grocerylist.repository.ProductRepository;
 
 import java.util.Optional;
@@ -25,6 +24,12 @@ public class ProductService {
     public Optional<ProductEntity> findProductById(Long id) {
         return productRepository.findById(id);
     }
+
+    //Read id
+    public ProductEntity findProductByName(String name) {
+        return productRepository.findByProductName(name);
+    }
+
 
     //Read all
     public Iterable<ProductEntity> findAllProducts(){
