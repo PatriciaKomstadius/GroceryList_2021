@@ -8,5 +8,6 @@ import se.iths.grocerylist.entity.GroceryListEntity;
 
 @Repository
 public interface GroceryListRepository extends CrudRepository<GroceryListEntity, Long> {
+    GroceryListEntity findByName (String name);
 
 }

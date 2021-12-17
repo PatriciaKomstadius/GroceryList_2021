@@ -16,10 +16,10 @@ public class GroceryListEntity {
     private String name;
 
     @ManyToMany(mappedBy = "grocerylists", cascade = CascadeType.ALL)
-    private Set<UserEntity> users;
+    private Set<UserEntity> users = new HashSet<>();
 
     @ManyToMany(mappedBy = "grocerylists", cascade = CascadeType.ALL)
-    private Set<ProductEntity> products;
+    private Set<ProductEntity> products = new HashSet<>();
 
 
     public GroceryListEntity() {
@@ -31,11 +31,14 @@ public class GroceryListEntity {
 
     public void addProduct(ProductEntity product){
         products.add(product);
+        product.addGroceryList(this);
+
     }
 
     public void addUser(UserEntity user){
         users.add(user);
         user.addGroceryList(this);
+
     }
 
     public Long getId() {
@@ -54,7 +57,7 @@ public class GroceryListEntity {
         this.name = name;
     }
 
-    @JsonIgnore
+//    @JsonIgnore
     public Set<UserEntity> getUsers() {
         return users;
     }

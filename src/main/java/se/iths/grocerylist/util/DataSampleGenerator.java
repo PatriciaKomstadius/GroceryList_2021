@@ -43,6 +43,8 @@ import javax.transaction.Transactional;
 
 
             userRepository.save(new UserEntity("admin", "email", "admin", "b", passwordEncoder.encode("123")));
+            userRepository.save(new UserEntity("customer", "email", "customer", "b", passwordEncoder.encode("123")));
+            userRepository.save(new UserEntity("employee", "email", "employee", "b", passwordEncoder.encode("123")));
             companyRepository.save(new CompanyEntity("ICA", new CompanyInfoEntity("1", "address", "zipcode", "city")));
             layoutRepository.save(new LayoutEntity("Maxi"));
             layoutRepository.save(new LayoutEntity("Nära"));
@@ -57,8 +59,13 @@ import javax.transaction.Transactional;
             ProductEntity apelsin = new ProductEntity("Apelsin", 10.00, "Frukt", 100);
             ProductEntity lax = new ProductEntity("Lax", 150.00, "Fisk", 30);
             ProductEntity banan = new ProductEntity("Banan", 15.00, "Frukt", 70);
-            ProductEntity salami = new ProductEntity("salami", 45.00, "Chark", 10);
+            ProductEntity salami = new ProductEntity("Salami", 45.00, "Chark", 10);
+            ProductEntity brod = new ProductEntity("Brod", 32.00, "Bageri", 500);
+            ProductEntity benAndJerry = new ProductEntity("BenAndJerry", 45.00, "Godis", 50);
+            GroceryListEntity groceryList1 = new GroceryListEntity("Frukost");
 
+            productRepository.save(brod);
+            productRepository.save(benAndJerry);
 
             DepartmentEntity godis = departmentRepository.findByDepartmentName("Godis");
 
@@ -102,15 +109,38 @@ import javax.transaction.Transactional;
 
 
 
+
+
+
             UserEntity findUser = userRepository.findByUsername("admin");
             RoleEntity roleToAdd = roleRepository.findByRoleName("ROLE_ADMIN");
-
-            System.out.println(roleToAdd.getRoleName());
-
             findUser.setRole(roleToAdd);
 
-            userRepository.save(findUser);
+            UserEntity cust = userRepository.findByUsername("customer");
+            roleToAdd = roleRepository.findByRoleName("ROLE_CUSTOMER");
+            cust.setRole(roleToAdd);
 
+            UserEntity emp = userRepository.findByUsername("employee");
+            roleToAdd = roleRepository.findByRoleName("ROLE_EMPLOYEE");
+            emp.setRole(roleToAdd);
+
+            userRepository.save(findUser);
+            userRepository.save(emp);
+            userRepository.save(cust);
+
+
+
+            groceryList1.addProduct(arlamjolk);
+            groceryList1.addProduct(apelsin);
+            groceryList1.addProduct(lax);
+            groceryList1.addProduct(banan);
+
+            groceryList1.addUser(findUser);
+            groceryList1.addUser(cust);
+            groceryList1.addUser(emp);
+
+
+            groceryListRepository.save(groceryList1);
 
         }
 
