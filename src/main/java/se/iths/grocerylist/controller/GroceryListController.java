@@ -30,7 +30,7 @@ public class GroceryListController {
 
     //POST
     @PostMapping()
-    public ResponseEntity<GroceryListEntity> createGroceryList(@RequestBody GroceryListEntity groceryList) {
+    public ResponseEntity<GroceryListEntity> createGroceryList(@ModelAttribute("grocerylist") @RequestBody GroceryListEntity groceryList) {
 
         if (groceryList.getName() == null || groceryList.getName().isEmpty()) {
 
@@ -41,12 +41,12 @@ public class GroceryListController {
         return new ResponseEntity<>(createdGrocerylist, HttpStatus.CREATED);
     }
 
-    @PostMapping("addproduct/{listname}/{productname}")
-    public ResponseEntity<GroceryListEntity>addProductToList(@PathVariable String listname, @PathVariable String productname){
+    @PostMapping("addproduct/{name}/{productname}")
+    public ResponseEntity<GroceryListEntity>addProductToList(@PathVariable String name, @PathVariable String productname){
 
         ProductEntity foundProduct = productService.findProductByName(productname);
 
-        GroceryListEntity updatedList = groceryListService.addProductsToList(listname, foundProduct);
+        GroceryListEntity updatedList = groceryListService.addProductsToList(name, foundProduct);
 
         return new ResponseEntity<>(updatedList, HttpStatus.OK);
 

@@ -26,7 +26,7 @@ public class ProductController {
 
     //POST
     @PostMapping()
-    public ResponseEntity<ProductEntity> createProduct(@RequestBody ProductEntity product) {
+    public ResponseEntity<ProductEntity> createProduct(@ModelAttribute ("productEntity") @RequestBody ProductEntity product) {
 
         if (product.getProductName() == null || product.getProductName().isEmpty()) {
             throw new BadRequestException("productName cannot be empty!");
