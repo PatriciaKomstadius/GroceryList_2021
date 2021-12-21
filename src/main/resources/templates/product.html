@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Products - inventory</title>
+</head>
+<body>
+
+<form th:action="@{/products}" method="post" th:object="${productEntity}">
+    <div><label> Product name: <input required type="text" name="productName"/> </label></div>
+    <div><label> Price: <input required type="text" name="price"/> </label></div>
+    <div><label> Category: <input type="text" name="category"/> </label></div>
+    <div><label> Quantity: <input type="number" name="quantity"/> </label></div>
+    <div><input type="submit" value="Save"/></div>
+</form>
+</body>
+</html>
