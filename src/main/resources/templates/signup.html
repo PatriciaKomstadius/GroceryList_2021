@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Loppis - Login</title>
+</head>
+<body>
+</div>
+<form th:action="@{/users/signup}" method="post" th:object="${userEntity}">
+    <div><label> Username : <input type="text" name="username"/> </label></div>
+    <div><label> Email : <input type="text" name="email"/> </label></div>
+    <div><label> firstName : <input type="text" name="firstName"/> </label></div>
+    <div><label> lastName : <input type="text" name="lastName"/> </label></div>
+    <div><label> Password: <input type="password" name="password"/> </label></div>
+    <div><input type="submit" value="SignUp"/></div>
+</form>
+</body>
+</html>
