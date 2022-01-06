@@ -9,6 +9,8 @@ import se.iths.grocerylist.entity.RoleEntity;
 import se.iths.grocerylist.exception.BadRequestException;
 import se.iths.grocerylist.exception.EntityNotFoundException;
 import se.iths.grocerylist.exception.MethodNotAllowedException;
+import se.iths.grocerylist.mapper.RoleMapper;
+import se.iths.grocerylist.model.RoleModel;
 import se.iths.grocerylist.service.RoleService;
 
 import javax.validation.Valid;
@@ -20,48 +22,55 @@ import java.util.Optional;
 public class RoleController {
 
     private final RoleService roleService;
+    private final RoleMapper roleMapper;
 
-    public RoleController (RoleService roleService){
+    public RoleController (RoleService roleService, RoleMapper roleMapper){
         this.roleService = roleService;
+        this.roleMapper = roleMapper;
     }
 
     @PostMapping()
-    public ResponseEntity<RoleEntity> createRole (@Valid @RequestBody RoleEntity role){
+    public ResponseEntity<RoleModel> createRole (@Valid @RequestBody RoleModel role){
 
         if(role.getRoleName()==null || role.getRoleName().isEmpty()){
             throw new BadRequestException("roleName cannot be empty");
         }
 
-        RoleEntity createdRole = roleService.createRole(role);
-        return new ResponseEntity<>(createdRole, HttpStatus.CREATED);
+        RoleEntity createdRole = roleService.createRole(roleMapper.roleModelToRoleEntity(role));
+        RoleModel response = roleMapper.roleEntityToRoleModel(createdRole);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Optional<RoleEntity>>findRoleById(@PathVariable Long id){
+    public ResponseEntity<RoleModel>findRoleById(@PathVariable Long id){
         Optional<RoleEntity> foundRole = roleService.findRoleById(id);
 
         if(foundRole.isEmpty()){
             throw new EntityNotFoundException(responseMessage(id));
         }
 
-        return new ResponseEntity<>(foundRole, HttpStatus.FOUND);
+        RoleModel response = roleMapper.roleEntityToRoleModel(foundRole.get());
+
+        return new ResponseEntity<>(response, HttpStatus.FOUND);
     }
 
 
 
     @GetMapping()
-    public ResponseEntity<Iterable<RoleEntity>>findAllRoles(){
+    public ResponseEntity<Iterable<RoleModel>>findAllRoles(){
         Iterable<RoleEntity> allRoles = roleService.findAllRoles();
 
         if (!allRoles.iterator().hasNext()){
             throw new EntityNotFoundException("There are no roles registered in the database");
         }
 
-        return new ResponseEntity<>(allRoles, HttpStatus.FOUND);
+        Iterable<RoleModel> allRoleModels = roleMapper.allEntityToAllModels(allRoles);
+
+        return new ResponseEntity<>(allRoleModels, HttpStatus.FOUND);
     }
 
     @PutMapping()
-    public ResponseEntity<RoleEntity>updateRole(@RequestBody RoleEntity role){
+    public ResponseEntity<RoleModel>updateRole(@RequestBody RoleModel role){
 
         if(role.getId()==null){
             throw new MethodNotAllowedException("You need to specify ID on product to be updated");
@@ -70,19 +79,21 @@ public class RoleController {
             throw new EntityNotFoundException(responseMessage(role.getId()));
         }
 
-        RoleEntity updatedRole = roleService.updateRole(role);
-        return new ResponseEntity<>(updatedRole, HttpStatus.OK);
+        RoleEntity updatedRole = roleService.updateRole(roleMapper.roleModelToRoleEntity(role));
+        RoleModel response = roleMapper.roleEntityToRoleModel(updatedRole);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity<Optional<RoleEntity>> updateRoleName(@PathVariable Long id, @RequestBody RoleEntity newUpdatedRole){
-
-        if(roleService.findRoleById(id).isEmpty()){
-            throw new EntityNotFoundException(responseMessage(id));
-        }
+    public ResponseEntity<RoleModel> updateRoleName(@PathVariable Long id, @RequestBody RoleModel newUpdatedRole){
 
         Optional<RoleEntity>updatedRole = roleService.updateRoleName(id, newUpdatedRole.getRoleName());
-        return new ResponseEntity<>(updatedRole, HttpStatus.OK);
+        if(updatedRole.isEmpty()){
+            throw new EntityNotFoundException(responseMessage(id));
+        }
+        RoleModel response = roleMapper.roleEntityToRoleModel(updatedRole.get());
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
