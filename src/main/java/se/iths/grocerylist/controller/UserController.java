@@ -11,6 +11,7 @@ import se.iths.grocerylist.model.UserModel;
 import se.iths.grocerylist.sender.Sender;
 import se.iths.grocerylist.service.UserService;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping("signup")
-    public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity user){
+    public ResponseEntity<UserModel> createUser(@ModelAttribute("signup") @RequestBody UserModel user){
 
         if(user.getUsername()==null || user.getUsername().isEmpty()){
             throw new BadRequestException("Empty Username");
@@ -44,9 +45,10 @@ public class UserController {
             throw new BadRequestException("Empty Password");
         }
 
-        sender.sendMessage(user.getUsername());
-        UserEntity createdUser = userService.createUser(user);
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+//        sender.sendMessage(user.getUsername());
+        UserEntity createdUser = userService.createUser(userMapper.userModelToUserEntity(user));
+        UserModel response = userMapper.userEntityToUserModel(createdUser);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
 
     }
 
@@ -67,26 +69,31 @@ public class UserController {
     }
 
     @GetMapping()
-    public ResponseEntity<Iterable<UserEntity>> findAllUsers(){
+    public ResponseEntity<Iterable<UserModel>> findAllUsers(){
 
             Iterable<UserEntity> allUsers = userService.findAllUsers();
-            return new ResponseEntity<>(allUsers, HttpStatus.FOUND);
+            Iterable<UserModel> allUsersModels = userMapper.allEntityToAllModels(allUsers);
+
+            return new ResponseEntity<>(allUsersModels, HttpStatus.FOUND);
 
     }
 
     @PutMapping()
-    public ResponseEntity<UserEntity>updateUser(@RequestBody UserEntity user){
-        UserEntity updatedUser = userService.updateUser(user);
-        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+    public ResponseEntity<UserModel>updateUser(@RequestBody UserModel user){
+        UserEntity updatedUser = userService.updateUser(userMapper.userModelToUserEntity(user));
+        UserModel response = userMapper.userEntityToUserModel(updatedUser);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 
 
 
     @PatchMapping("{id}")
-    public ResponseEntity<Optional<UserEntity>> updateUserEmail(@PathVariable Long id, @RequestBody UserEntity user){
+    public ResponseEntity<UserModel> updateUserEmail(@PathVariable Long id, @RequestBody UserModel user){
         Optional<UserEntity> updatedUser = userService.updateUserEmail(id, user.getEmail());
-        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+        UserModel response = userMapper.userEntityToUserModel(updatedUser.get());
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 
