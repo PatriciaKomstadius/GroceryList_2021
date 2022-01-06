@@ -3,15 +3,14 @@ package se.iths.grocerylist.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 import se.iths.grocerylist.entity.UserEntity;
 import se.iths.grocerylist.exception.BadRequestException;
 import se.iths.grocerylist.exception.EntityNotFoundException;
-import se.iths.grocerylist.exception.UnauthorizedException;
+import se.iths.grocerylist.mapper.UserMapper;
+import se.iths.grocerylist.model.UserModel;
 import se.iths.grocerylist.sender.Sender;
 import se.iths.grocerylist.service.UserService;
 
-import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -20,10 +19,12 @@ public class UserController {
 
     private final UserService userService;
     private final Sender sender;
+    private final UserMapper userMapper;
 
-    public UserController(UserService userService, Sender sender){
+    public UserController(UserService userService, Sender sender, UserMapper userMapper){
         this.userService = userService;
         this.sender = sender;
+        this.userMapper = userMapper;
     }
 
     @PostMapping("signup")
@@ -50,7 +51,7 @@ public class UserController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Optional<UserEntity>> findUserById(@PathVariable Long id){
+    public ResponseEntity<UserModel> findUserById(@PathVariable Long id){
 
             Optional<UserEntity> foundUser = userService.findUserById(id);
 
@@ -58,7 +59,9 @@ public class UserController {
                 throw new EntityNotFoundException("Fel");
             }
 
-            return new ResponseEntity<>(foundUser, HttpStatus.FOUND);
+            UserModel response = userMapper.userEntityToUserModel(foundUser.get());
+
+            return new ResponseEntity<>(response, HttpStatus.FOUND);
 
 
     }
