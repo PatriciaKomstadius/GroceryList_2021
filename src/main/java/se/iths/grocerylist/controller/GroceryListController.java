@@ -30,7 +30,7 @@ public class GroceryListController {
 
     //POST
     @PostMapping()
-    public ResponseEntity<GroceryListEntity> createGroceryList(@ModelAttribute("grocerylist") @RequestBody GroceryListEntity groceryList) {
+    public ResponseEntity<GroceryListEntity> createGroceryList(/*@ModelAttribute("grocerylist")*/ @RequestBody GroceryListEntity groceryList) {
 
         if (groceryList.getName() == null || groceryList.getName().isEmpty()) {
 
