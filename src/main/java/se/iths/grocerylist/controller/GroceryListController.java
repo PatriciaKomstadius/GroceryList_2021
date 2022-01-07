@@ -37,8 +37,11 @@ public class GroceryListController {
     //POST
     @PostMapping()
 
-    //Webb: @ModelAttribute("grocerylist")
+    public ResponseEntity<GroceryListEntity> createGroceryList(/*@ModelAttribute("grocerylist")*/ @RequestBody GroceryListEntity groceryList) {
+
+      
     public ResponseEntity<GroceryListModel> createGroceryList( @RequestBody GroceryListModel groceryList) {
+
 
         if (groceryList.getName() == null || groceryList.getName().isEmpty()) {
 
