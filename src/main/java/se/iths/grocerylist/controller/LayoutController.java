@@ -4,9 +4,13 @@ package se.iths.grocerylist.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.iths.grocerylist.entity.GroceryListEntity;
 import se.iths.grocerylist.entity.LayoutEntity;
 import se.iths.grocerylist.exception.BadRequestException;
 import se.iths.grocerylist.exception.EntityNotFoundException;
+import se.iths.grocerylist.mapper.LayoutMapper;
+import se.iths.grocerylist.model.GroceryListModel;
+import se.iths.grocerylist.model.LayoutModel;
 import se.iths.grocerylist.service.LayoutService;
 
 import java.util.ArrayList;
@@ -18,26 +22,33 @@ import java.util.Optional;
 public class LayoutController {
 
     private final LayoutService layoutService;
+    private final LayoutMapper layoutMapper;
 
-    public LayoutController(LayoutService layoutService) {
+    public LayoutController(LayoutService layoutService, LayoutMapper layoutMapper) {
         this.layoutService = layoutService;
+        this.layoutMapper = layoutMapper;
+
     }
 
     //POST
     @PostMapping()
-    public ResponseEntity<LayoutEntity> createLayout(@RequestBody LayoutEntity layout) {
+    public ResponseEntity<LayoutModel> createLayout(@RequestBody LayoutModel layout) {
 
         if (layout.getType() == null || layout.getType().isEmpty()) {
             throw new BadRequestException("Layout type can not be empty.");
         }
-        LayoutEntity createdLayout = layoutService.createLayout(layout);
+      //  LayoutEntity createdLayout = layoutService.createLayout(layout);
 
-        return new ResponseEntity<>(createdLayout, HttpStatus.CREATED);
+        LayoutEntity createdLayout = layoutService.createLayout(layoutMapper.layoutModelToLayoutEntity(layout));
+        LayoutModel response = layoutMapper.layoutEntityToLayoutModel(createdLayout);
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        //return new ResponseEntity<>(createdLayout, HttpStatus.CREATED);
     }
 
     //GET id
     @GetMapping("{id}")
-    public ResponseEntity<Optional<LayoutEntity>> findLayoutById(@PathVariable Long id) {
+    public ResponseEntity<LayoutModel> findLayoutById(@PathVariable Long id) {
 
         Optional<LayoutEntity> foundLayout = layoutService.findLayoutById(id);
 
@@ -45,12 +56,14 @@ public class LayoutController {
             throw new EntityNotFoundException("Layout with id " + id + " doesn't exist.");
         }
 
-        return new ResponseEntity<>(foundLayout, HttpStatus.FOUND);
+        LayoutModel response = layoutMapper.layoutEntityToLayoutModel(foundLayout.get());
+
+        return new ResponseEntity<>(response, HttpStatus.FOUND);
     }
 
     //GET all
     @GetMapping()
-    public ResponseEntity<Iterable<LayoutEntity>> findAllLayouts() {
+    public ResponseEntity<Iterable<LayoutModel>> findAllLayouts() {
 
         Iterable<LayoutEntity> findAllLayouts = layoutService.findAllLayouts();
         List<LayoutEntity> foundLayouts = new ArrayList<>();
@@ -61,12 +74,14 @@ public class LayoutController {
         if (foundLayouts.isEmpty()) {
             throw new EntityNotFoundException("No layouts exists.");
         }
-        return new ResponseEntity<>(findAllLayouts, HttpStatus.FOUND);
+        Iterable<LayoutModel> allLayoutModels = layoutMapper.allEntityToAllModels(foundLayouts);
+
+        return new ResponseEntity<>(allLayoutModels, HttpStatus.FOUND);
     }
 
     //PATCH
     @PatchMapping("{id}")
-    public ResponseEntity<Optional<LayoutEntity>> updateType(@PathVariable Long id, @RequestBody LayoutEntity type) {
+    public ResponseEntity<LayoutModel> updateType(@PathVariable Long id, @RequestBody LayoutModel type) {
 
         Optional<LayoutEntity> foundLayout = layoutService.findLayoutById(id);
 
@@ -79,7 +94,9 @@ public class LayoutController {
 
         Optional<LayoutEntity> updatedLayout = layoutService.updateTypeOfLayout(id, type.getType());
 
-        return new ResponseEntity<>(updatedLayout, HttpStatus.OK);
+        LayoutModel response = layoutMapper.layoutEntityToLayoutModel(updatedLayout.get());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
 
     }
 
