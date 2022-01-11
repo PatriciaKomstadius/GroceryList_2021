@@ -3,6 +3,7 @@ package se.iths.grocerylist.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import se.iths.grocerylist.entity.GroceryListEntity;
 import se.iths.grocerylist.entity.ProductEntity;
 import se.iths.grocerylist.entity.UserEntity;
@@ -34,12 +35,9 @@ public class GroceryListController {
         this.groceryListMapper = groceryListMapper;
     }
 
+
     //POST
     @PostMapping()
-
-    public ResponseEntity<GroceryListEntity> createGroceryList(/*@ModelAttribute("grocerylist")*/ @RequestBody GroceryListEntity groceryList) {
-
-      
     public ResponseEntity<GroceryListModel> createGroceryList( @RequestBody GroceryListModel groceryList) {
 
 
@@ -55,6 +53,9 @@ public class GroceryListController {
         //return new ResponseEntity<>(createdGrocerylist, HttpStatus.CREATED);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
+
+
 
     @PostMapping("addproduct/{name}/{productname}")
     public ResponseEntity<GroceryListEntity>addProductToList(@PathVariable String name, @PathVariable String productname){
@@ -83,7 +84,7 @@ public class GroceryListController {
         return new ResponseEntity<>(response, HttpStatus.FOUND);
     }
 
-    //GET all
+//    //GET all
     @GetMapping()
     public ResponseEntity<Iterable<GroceryListModel>> getAllGroceryLists() {
 
