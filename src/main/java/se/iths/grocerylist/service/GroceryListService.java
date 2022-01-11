@@ -1,6 +1,10 @@
 package se.iths.grocerylist.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import se.iths.grocerylist.entity.GroceryListEntity;
 import se.iths.grocerylist.entity.ProductEntity;
 import se.iths.grocerylist.repository.GroceryListRepository;
@@ -18,7 +22,7 @@ public class GroceryListService {
 
 
     //Create
-    public GroceryListEntity createGroceryList(GroceryListEntity groceryListEntity) {
+    public GroceryListEntity createGroceryList( GroceryListEntity groceryListEntity) {
         return groceryListRepository.save(groceryListEntity);
     }
 
@@ -30,6 +34,9 @@ public class GroceryListService {
         return listToUpdate;
     }
 
+    public GroceryListEntity getGroceryListByName(String name) {
+        return groceryListRepository.findByName(name);
+    }
     //Read id
     public Optional<GroceryListEntity> getGroceryListById(Long id) {
         return groceryListRepository.findById(id);

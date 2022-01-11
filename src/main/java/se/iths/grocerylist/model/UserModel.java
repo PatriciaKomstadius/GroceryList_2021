@@ -1,6 +1,11 @@
 package se.iths.grocerylist.model;
 
 
+import se.iths.grocerylist.entity.GroceryListEntity;
+
+import java.util.HashSet;
+import java.util.Set;
+
 public class UserModel {
 
     private Long id;
@@ -9,6 +14,7 @@ public class UserModel {
     private String firstName;
     private String lastName;
     private String password;
+
 
 
     public UserModel() {
@@ -22,6 +28,7 @@ public class UserModel {
         this.password = password;
 
     }
+
 
     public Long getId(){ return id; }
 
@@ -59,6 +66,15 @@ public class UserModel {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
 
     @Override
     public String toString() {
