@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("application")
+@RequestMapping("app")
 public class ThymeLeafController {
 
     private final GroceryListService groceryListService;
