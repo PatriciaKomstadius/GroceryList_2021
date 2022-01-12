@@ -10,29 +10,29 @@
 <p>Här är din inköpslista</p>
 
 
-<form th:action="@{/application}" method="post" th:object="${groceryListModel}">
+<form th:action="@{/app/}" method="post" th:object="${groceryListModel}">
     <div><label> Name: <input required type="text" name="name"/> </label></div>
-    <div><input type="submit" value="Save"/></div>
+    <div><input type="submit" value="New"/></div>
 </form>
 
-<form th:action="@{/application/addproduct}" method="post">
+<form th:action="@{/app/addproduct}" method="post">
     <div><label> List name: <input required type="text" value="Julmat" name="name"/> </label></div>
     <div><label> Product name: <input required type="text" name="productName" /> </label></div>
-    <div><input type="submit" value="Save"/></div>
+    <div><input type="submit" value="Add"/></div>
 </form>
 
-<form th:action="@{/application/update}" method="patch" >
+<form th:action="@{/app/update}" method="patch" >
     <div><label> List id: <input required type="text"  name="id"/> </label></div>
     <div><label> New name: <input required type="text"  name="name"/> </label></div>
-    <div><input type="submit" value="Save"/></div>
+    <div><input type="submit" value="Update"/></div>
 </form>
 
 
 
 
-<form th:action="@{/application/deletelist}" method="delete" th:object="${groceryListEntity}">
+<form th:action="@{/app/deletelist}" method="delete" th:object="${groceryListEntity}">
     <div><label> List name: <input required type="text"  name="name"/> </label></div>
-    <div><input type="submit" value="Save"/></div>
+    <div><input type="submit" value="Delete"/></div>
 </form>
 
 

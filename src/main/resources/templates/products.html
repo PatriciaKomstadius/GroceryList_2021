@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Admin - Welcome</title>
+</head>
+<body>
+
+<form th:action="@{'/addproduct/' + ${name}}" method="post" th:object="${grocerylist}">
+    <div><label > List name: <input required type="text" value="Frukost" name="name" id="name"/> </label></div>
+    <div><label> Product name: <input required type="text"  value="Banan" name="productName"/> </label></div>
+    <div><input type="submit" value="Save"/></div>
+</form>
+
+</body>
+</html>
