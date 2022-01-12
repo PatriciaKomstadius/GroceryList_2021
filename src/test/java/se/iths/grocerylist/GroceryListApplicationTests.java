@@ -1,21 +1,17 @@
 package se.iths.grocerylist;
 
-import org.assertj.core.util.Maps;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import se.iths.grocerylist.entity.*;
-
-import java.util.HashMap;
-import java.util.Map;
+import se.iths.grocerylist.repository.UserRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 
 @SpringBootTest (webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 
@@ -29,10 +25,20 @@ class GroceryListApplicationTests {
     @Autowired
     TestRestTemplate testClient;
 
+    @Autowired
+    UserRepository userRepository;
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    @BeforeEach
-    void beforeTestLoadDatabaseWithUsers(){
 
+    void beforeTestLoadDatabaseWithUsers(String name){
+
+        String url = "http://localhost:" + port + "/users/signup";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+
+        UserEntity userEntity = new UserEntity(name, "email", "admin", "b", passwordEncoder.encode("123"));
+        var result = testClient.exchange(url, HttpMethod.POST, new HttpEntity<Object>(userEntity, headers), UserEntity.class);
 
     }
 
@@ -51,15 +57,18 @@ class GroceryListApplicationTests {
 
     @Test
     void oneShouldReturnOneUsername() {
+        beforeTestLoadDatabaseWithUsers("johan");
+
         String url = "http://localhost:" + port + "/users/{id}";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setBasicAuth("admin", "123");
 
-        long id = 4;
+        long id = userRepository.findByUsername("johan").getId();
+
         var result = testClient.exchange(url, HttpMethod.GET, new HttpEntity<>(headers),UserEntity.class,id);
 
-        assertThat(result.getBody().getUsername().equals("admin"));
+        assertThat(result.getBody().getUsername().equals("johan"));
 
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.FOUND);
 
@@ -68,13 +77,16 @@ class GroceryListApplicationTests {
 
     @Test
     void deleteUserShouldReturnNoContent() {
+
+        beforeTestLoadDatabaseWithUsers("kalle");
+
         String url = "http://localhost:" + port + "/users/{id}";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setBasicAuth("admin", "123");
 
-        long id = 4;
-        var result = testClient.exchange(url, HttpMethod.DELETE, new HttpEntity<>(headers),UserEntity.class,id);
+        long id = userRepository.findByUsername("kalle").getId();
+       var  result = testClient.exchange(url, HttpMethod.DELETE, new HttpEntity<>(headers),UserEntity.class,id);
 
 
 
