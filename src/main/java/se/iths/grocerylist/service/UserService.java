@@ -2,11 +2,13 @@ package se.iths.grocerylist.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import se.iths.grocerylist.entity.ProductEntity;
 import se.iths.grocerylist.entity.RoleEntity;
 import se.iths.grocerylist.entity.UserEntity;
 import se.iths.grocerylist.repository.RoleRepository;
 import se.iths.grocerylist.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,6 +57,7 @@ public class UserService {
         return foundUser;
 
     }
+
 
     public void deleteUser(Long id) {
         Optional<UserEntity> foundUser = userRepository.findById(id);

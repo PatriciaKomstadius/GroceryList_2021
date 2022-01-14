@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+<body style="margin: 10px; padding: 10px">
+<h1 th:inline="text">Dina handlingslistor:</h1>
+<table style="font-size: 16px; margin-top: 30px; margin-left: 30px">
+    <thead>
+    <tr>
+        <th colspan="2" style="width: 50px"> Id </th>
+        <th colspan="2" style="width: 150px"> Namn </th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${grocerylists.empty}">
+        <td colspan="2"> No List Available </td>
+    </tr>
+    <tr th:each="grocerylist : ${grocerylists}">
+        <td colspan="2" style="width: 50px"><span th:text="${grocerylist.id}"> </span></td>
+        <td colspan="2" style="width: 150px"><span th:text="${grocerylist.name}"> </span></td>
+    </tr>
+
+    </tbody>
+</table>
+
+<p style="margin-top: 50px; font-weight: bold">Ändra namn på lista:</p>
+
+<form th:action="@{/app/update}" method="patch" >
+    <div><label> List id: <input required type="text"  name="id"/> </label></div>
+    <div><label> Nytt namn: <input required type="text"  name="name"/> </label></div>
+    <div><input type="submit" value="Uppdatera namn"/></div>
+</form>
+
+<p style="margin-top: 50px; font-weight: bold" >Ta bort lista:</p>
+<form th:action="@{/app/deletelist}" method="delete" th:object="${groceryListEntity}">
+    <div><label> List namn: <input required type="text"  name="name"/> </label></div>
+    <div><input type="submit" value="Ta bort lista"/></div>
+</form>
+
+<p style="margin-top: 50px; font-weight: bold" >Gå till lista för att hantera produkter:</p>
+<form th:action="@{/app/edit}" method="post">
+    <div><label> Name: <input th:name="name"  /> </label></div>
+    <div><input type="submit" value="Gå till"/></div>
+</form>
+
+
+<!--<table>-->
+<!--<tbody>-->
+<!--<tr th:each="grocerylist: ${grocerylists}">-->
+<!--    <td th:text="${grocerylist.name}" />-->
+
+<!--    <td>-->
+<!--        <a th:href="@{/showUpdateForm(name=${grocerylist.name})}" class="btn btn-info">Update</a>-->
+
+<!--        <a th:href="@{/deletelist(name=${grocerylist.name})}" class="btn btn-danger ml-2">Delete</a>-->
+<!--    </td>-->
+<!--</tr>-->
+<!--</tbody>-->
+<!--</table>-->
+
+</body>
+</html>

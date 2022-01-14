@@ -9,7 +9,10 @@ import se.iths.grocerylist.entity.GroceryListEntity;
 import se.iths.grocerylist.entity.ProductEntity;
 import se.iths.grocerylist.repository.GroceryListRepository;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class GroceryListService {
@@ -32,6 +35,19 @@ public class GroceryListService {
         groceryListRepository.save(listToUpdate);
 
         return listToUpdate;
+    }
+
+    public GroceryListEntity removeProductsFromList(String groceryListName, ProductEntity product){
+        GroceryListEntity listToUpdate =  groceryListRepository.findByName(groceryListName);
+        listToUpdate.removeProduct(product);
+        groceryListRepository.save(listToUpdate);
+
+        return listToUpdate;
+    }
+
+    public Set<ProductEntity> getProductsOnGrocerylist(String groceryListName){
+        GroceryListEntity foundGroceryList = groceryListRepository.findByName(groceryListName);
+        return foundGroceryList.getProducts();
     }
 
     public GroceryListEntity getGroceryListByName(String name) {

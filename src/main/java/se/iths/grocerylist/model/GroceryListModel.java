@@ -9,7 +9,7 @@ public class GroceryListModel {
 
     private Long id;
     private String name;
-    private Set<UserModel> users;
+//    private Set<UserModel> users;
     private Set<ProductModel>products;
 
     public GroceryListModel() {
@@ -44,13 +44,6 @@ public class GroceryListModel {
     }
 
 
-    public Set<UserModel> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<UserModel> users) {
-        this.users = users;
-    }
 
     @Override
     public String toString() {

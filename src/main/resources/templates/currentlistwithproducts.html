@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+<body style="margin-left: 10px; padding-left: 10px">
+<table>
+    <thead>
+    <tr>
+        <th> Varor </th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <h1 th:text="${currentlistname}"/>
+    <tr th:if="${currentlistproducts.isEmpty()}">
+        <td colspan="2"> No products Available </td>
+    </tr>
+    <tr th:each="product : ${currentlistproducts}">
+        <td><span th:text="${product.productName}"> </span></td>
+    </tr>
+
+    </tbody>
+</table>
+<form style="margin-top: 50px" th:action="@{/app/edit}" method="post">
+    <div><input hidden th:name="name" th:value="${currentlistname}" /> </label></div>
+    <div><input type="submit" value="Redigera listan"/></div>
+</form>
+<p style="margin-top: 50px">Klicka <a th:href="@{/app/all}">här</a> för att se alla dina listor</p>
+
+
+</body>
+</html>

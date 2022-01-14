@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]!</h1>
-<p>This is the admin console, restricted to administrators only.</p>
+<p>This is the employee console, restricted to employees only.</p>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>

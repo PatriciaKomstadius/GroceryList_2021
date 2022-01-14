@@ -5,8 +5,10 @@ import org.springframework.stereotype.Repository;
 import se.iths.grocerylist.entity.GroceryListEntity;
 import se.iths.grocerylist.entity.ProductEntity;
 
+import java.util.Optional;
+
 
 @Repository
 public interface ProductRepository extends CrudRepository<ProductEntity, Long> {
-    ProductEntity findByProductName (String name);
+    Optional<ProductEntity> findByProductName (String name);
 }

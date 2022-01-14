@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Grocery</title>
+</head>
+<body>
+<form action="#" th:action="@{/app/save}" th:object="${form}"
+      method="post">
+    <fieldset>
+        <input type="submit" id="submitButton" th:value="Save">
+        <input type="reset" id="resetButton" name="reset" th:value="Reset"/>
+        <table>
+            <thead>
+            <tr>
+                <th> Title</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="list, itemStat : *{grocerylists}">
+                <td><input th:field="*{grocerylists[__${itemStat.index}__].name}" /></td>
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+</form>
+
+</body>
+</html>

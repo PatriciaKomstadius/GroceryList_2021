@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+>
+<head>
+    <title>Inköpslistan - Välkommen</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+<body style="margin-left: 20px; padding-left: 10px">
+<h1 th:text="${currentlistname}"/>
+
+<table style="margin-bottom: 50px">
+    <thead>
+    <tr>
+        <th> Varor som redan finns på listan: </th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${currentlistproducts}">
+        <td><span th:text="${product.getProductName()}"> </span></td>
+    </tr>
+
+    </tbody>
+</table>
+
+
+<form action="#" th:action="@{/app/save}" th:object="${form}"
+      method="post">
+    <fieldset>
+        <input hidden th:field="*{currentGroceryList}" th:value="${form.getCurrentGroceryList()}"  />
+        <table>
+            <thead>
+            <tr>
+                <th> Lägg till produkter</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="list, itemStat : *{productslist}">
+                <td><input th:field="*{productslist[__${itemStat.index}__].productName}" /></td>
+
+            </tr>
+            </tbody>
+        </table>
+        <input type="submit" id="submitButton" th:value="Save">
+        <input type="reset" id="resetButton" name="reset" th:value="Reset"/>
+    </fieldset>
+</form>
+
+<p style="margin-top: 20px; font-weight: bold" >Ta bort produkt:</p>
+<form th:action="@{/app/deleteproduct}" method="delete" >
+    <input hidden name="listname" th:value="${form.getCurrentGroceryList()}"  />
+    <input required type="text"  name="productname"/>
+    <div><input type="submit" value="Ta bort produkt"/></div>
+</form>
+
+<!--<form th:action="@{/addproduct}" method="post" th:object="${grocerylistEntity}">-->
+<!--    <p> List name: <input required type="text" th:field="*{name}"/><p>-->
+<!--    <p> Product name: <input required type="text" th:field="*{products.get(productname)}"/><p>-->
+<!--    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>-->
+<!--</form>-->
+<p> </p>
+<p style="margin-top: 40px; font-weight: bold">Dessa produkter finns för närvarande i butik:</p>
+<table th:marginheight="20">
+    <thead>
+    <tr>
+        <th colspan="2"> Produkt </th>
+        <th colspan="2" style="padding-left: 10px"> Pris SEK </th>
+
+    </tr>
+    </thead>
+    <tbody >
+    <tr th:if="${allproducts.empty}" >
+        <td colspan="2"> No List Available </td>
+    </tr>
+    <tr th:each="product : ${allproducts}">
+        <td colspan="2"><span th:text="${product.getProductName()}"> </span></td>
+        <td colspan="2" style="padding-left: 10px"><span th:text="${product.getPrice()}"> </span></td>
+    </tr>
+
+    </tbody>
+</table>
+<p> </p>
+
+<p>Klicka <a th:href="@{/app/all}">här</a> för att se alla dina listor</p>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+
+
+
+</body>
+</html>

@@ -5,37 +5,24 @@
     <title>Inköpslistan - Välkommen</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 </head>
-<body>
+<body style="margin-left: 10px; padding-left: 10px">
 <h1 th:inline="text">Välkommen [[${#httpServletRequest.remoteUser}]]!</h1>
-<p>Här är din inköpslista</p>
+<p style="margin-top: 20px">Vad skulle du vilja göra idag?</p>
+
+<p style="margin-top: 30px">Klicka <a th:href="@{/app/all}">här</a> för att se dina befintliga listor</p>
 
 
+<p style="margin-top: 30px; font-weight: bold">Eller skapa en NY handlingslista här:</p>
 <form th:action="@{/app/}" method="post" th:object="${groceryListModel}">
-    <div><label> Name: <input required type="text" name="name"/> </label></div>
-    <div><input type="submit" value="New"/></div>
+    <div><label> Namn: <input required type="text" name="name"/> </label></div>
+    <div><input type="submit" value="Skapa"/></div>
 </form>
 
-<form th:action="@{/app/addproduct}" method="post">
-    <div><label> List name: <input required type="text" value="Julmat" name="name"/> </label></div>
-    <div><label> Product name: <input required type="text" name="productName" /> </label></div>
-    <div><input type="submit" value="Add"/></div>
-</form>
-
-<form th:action="@{/app/update}" method="patch" >
-    <div><label> List id: <input required type="text"  name="id"/> </label></div>
-    <div><label> New name: <input required type="text"  name="name"/> </label></div>
-    <div><input type="submit" value="Update"/></div>
-</form>
-
-
-
-
-<form th:action="@{/app/deletelist}" method="delete" th:object="${groceryListEntity}">
-    <div><label> List name: <input required type="text"  name="name"/> </label></div>
-    <div><input type="submit" value="Delete"/></div>
-</form>
-
-
+<!--<form th:action="@{/app/addproduct}" method="post">-->
+<!--    <div><label> List name: <input required type="text" value="Julmat" name="name"/> </label></div>-->
+<!--    <div><label> Product name: <input required type="text" name="productName" /> </label></div>-->
+<!--    <div><input type="submit" value="Add"/></div>-->
+<!--</form>-->
 
 <!--<form th:action="@{/addproduct}" method="post" th:object="${grocerylistEntity}">-->
 <!--    <p> List name: <input required type="text" th:field="*{name}"/><p>-->
@@ -45,8 +32,8 @@
 
 
 
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
+<form style="margin-top: 50px" th:action="@{/logout}" method="post">
+    <input type="submit" value="Logga ut"/>
 </form>
 
 
