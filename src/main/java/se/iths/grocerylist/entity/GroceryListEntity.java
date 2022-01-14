@@ -35,6 +35,12 @@ public class GroceryListEntity {
 
     }
 
+    public void removeProduct(ProductEntity product){
+        products.remove(product);
+        product.removeGroceryList(this);
+
+    }
+
     public void addUser(UserEntity user){
         users.add(user);
         user.addGroceryList(this);

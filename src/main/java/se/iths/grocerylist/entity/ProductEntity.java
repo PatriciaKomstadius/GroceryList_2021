@@ -38,6 +38,9 @@ public class ProductEntity {
     public void addGroceryList(GroceryListEntity grocerylist){
        grocerylists.add(grocerylist);
     }
+    public void removeGroceryList(GroceryListEntity grocerylist){
+        grocerylists.remove(grocerylist);
+    }
 
     public Long getId() {
         System.out.println();

@@ -15,6 +15,7 @@ public class UserModel {
     private String lastName;
     private String password;
 
+    private Set<GroceryListEntity> grocerylists = new HashSet<>();
 
 
     public UserModel() {
@@ -75,6 +76,13 @@ public class UserModel {
         this.lastName = lastName;
     }
 
+    public Set<GroceryListEntity> getGrocerylists() {
+        return grocerylists;
+    }
+
+    public void setGrocerylists(Set<GroceryListEntity> grocerylists) {
+        this.grocerylists = grocerylists;
+    }
 
     @Override
     public String toString() {

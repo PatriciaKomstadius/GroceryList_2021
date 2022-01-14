@@ -60,9 +60,9 @@ public class GroceryListController {
     @PostMapping("addproduct/{name}/{productname}")
     public ResponseEntity<GroceryListEntity>addProductToList(@PathVariable String name, @PathVariable String productname){
 
-        ProductEntity foundProduct = productService.findProductByName(productname);
+        Optional<ProductEntity> foundProduct = productService.findProductByName(productname);
 
-        GroceryListEntity updatedList = groceryListService.addProductsToList(name, foundProduct);
+        GroceryListEntity updatedList = groceryListService.addProductsToList(name, foundProduct.get());
 
         return new ResponseEntity<>(updatedList, HttpStatus.OK);
 

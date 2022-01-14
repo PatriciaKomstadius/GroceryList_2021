@@ -1,9 +1,11 @@
 package se.iths.grocerylist.service;
 
 import org.springframework.stereotype.Service;
+import se.iths.grocerylist.entity.GroceryListEntity;
 import se.iths.grocerylist.entity.ProductEntity;
 import se.iths.grocerylist.repository.ProductRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,7 +28,7 @@ public class ProductService {
     }
 
     //Read id
-    public ProductEntity findProductByName(String name) {
+    public Optional<ProductEntity> findProductByName(String name) {
         return productRepository.findByProductName(name);
     }
 
@@ -39,6 +41,8 @@ public class ProductService {
     public ProductEntity updateProduct(ProductEntity product){
         return productRepository.save(product);
     }
+
+
 
     //Update price
     public Optional<ProductEntity> updatePriceOfProduct(Long id, double price){
