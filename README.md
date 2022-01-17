@@ -1,30 +1,28 @@
-##GroceryList Application -
-####Schoolproject Complex Java-programming HT2021
+# GroceryList Application-
+# Schoolproject Complex Java-programming HT2021
 
 - This application provides functionality to create an account at a store and to add, edit, update and delete grocerylists. 
 - Includes functionality to manage users, products, layouts, departments, and company information. Basic auth as admin or employee is needed to manage and making changes to these endpoints. 
 - The application includes jms listener and exception handling with exception mappers for methods. The ThymeleafController has no exception handling for its methods. 
 - Includes a basic data sample used as database for testing purpose only.
 
-####To install the application:
+#### To install the application:
 - Download zip/clone project
 - Start the application with an IDE
 
-####Enter website:
+#### Enter website:
 Login as user, admin or employee to make CRUD operations to your grocerylist and to overview all grocerylists:
 
 > To enter your account go to: http://localhost:8080/application
 > 
 > To sign up for an account go to: http://localhost:8080/signup
+> 
+>Overview of all grocerylists: http://localhost:8080/app/all
 
 
-----OBS VAD ÄR RÄTT LÄNK?!
->Overview of all grocerylists: http://localhost:8080/application/getall
+#### Instructions to test endpoints in Insomnia:
 
-
-####Instructions to test endpoints in Insomnia:
-
-###USERS
+### USERS
 
 *****Create new user:*****   
 POST http:localhost:8080/users/signup
@@ -109,15 +107,6 @@ DELETE http:localhost:8080/grocerylists/{id}
 
 *****Add product to existing grocerylist:*****  
 POST http://localhost:8080/grocerylists/addproduct/{grocerylist}/{product}
-
------> PATCH
-
-http://localhost:8080/grocerylists/addproduct/{grocerylist}/{product}
-
------> DELETE product from grocerylist?
-
-
-
 
 ##PRODUCTS, DEPARTMENTS, LAYOUTS, COMPANIES..
 For these operations autentication as admin is needed:
