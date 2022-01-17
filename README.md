@@ -247,15 +247,22 @@ To use JMS the application needs to run as a docker container.
 Start a docker Container with ActiveMQ Artemis:
 >docker container run --name artemis -p 8161:8161 -p 61616:61616 vromero/activemq-artemis
 
+To build jar-files of the receiver and sender:
+- Use an IDE
+- Comment out the sender to build a jar-file of the receiver
+- Run mvn package
+- Comment out the receiver to build a jar-file of the sender
+- Run mvn package
+
 Open terminal where the receiver is found and run following command:
->docker image build -t jms-211206-receiver .
+>docker image build -t grocerylist-receiver .
 
 Open terminal where the sender is found and run following command:
->docker image build -t jms-211206-sender .
+>docker image build -t grocerylist-sender .
 
 Start the sender and receiver with Artemis:
->docker container run -p 8080:8080 --link artemis:artemis jms-211206-receiver
->docker container run -p 8081:8080 --link artemis:artemis jms-211206-sender
+>docker container run -p 8080:8080 --link artemis:artemis grocerylist-receiver
+>docker container run -p 8081:8080 --link artemis:artemis grocerylist-sender
 
 The application should now send a message every time a customer log in to the application.
 
