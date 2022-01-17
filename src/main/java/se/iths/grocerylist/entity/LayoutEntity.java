@@ -1,7 +1,5 @@
 package se.iths.grocerylist.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +13,7 @@ public class LayoutEntity {
     private Long id;
     private String type;
 
-    @ManyToMany(mappedBy = "layouts",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "layouts", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<DepartmentEntity> departments = new HashSet<>();
 
     @ManyToOne
@@ -28,19 +26,18 @@ public class LayoutEntity {
         this.type = type;
     }
 
-    public void addDepartment(DepartmentEntity department){
+    public void addDepartment(DepartmentEntity department) {
         departments.add(department);
         department.getLayouts().add(this);
 
-
         System.out.println("----------------------------------------------------------");
         System.out.println(this.type);
-        for (DepartmentEntity d: departments
-             ) {
-            System.out.println( "SET " + d.getDepartmentName() );
+        for (DepartmentEntity d : departments
+        ) {
+            System.out.println("SET " + d.getDepartmentName());
         }
 
-            }
+    }
 
     public CompanyEntity getCompanyEntity() {
         return companyEntity;

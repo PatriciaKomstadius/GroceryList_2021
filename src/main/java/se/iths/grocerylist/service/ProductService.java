@@ -17,35 +17,27 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    //Create
     public ProductEntity createProduct(ProductEntity product) {
         return productRepository.save(product);
     }
 
-    //Read id
     public Optional<ProductEntity> findProductById(Long id) {
         return productRepository.findById(id);
     }
 
-    //Read id
     public Optional<ProductEntity> findProductByName(String name) {
         return productRepository.findByProductName(name);
     }
 
-
-    //Read all
-    public Iterable<ProductEntity> findAllProducts(){
+    public Iterable<ProductEntity> findAllProducts() {
         return productRepository.findAll();
     }
 
-    public ProductEntity updateProduct(ProductEntity product){
+    public ProductEntity updateProduct(ProductEntity product) {
         return productRepository.save(product);
     }
 
-
-
-    //Update price
-    public Optional<ProductEntity> updatePriceOfProduct(Long id, double price){
+    public Optional<ProductEntity> updatePriceOfProduct(Long id, double price) {
 
         Optional<ProductEntity> foundProduct = productRepository.findById(id);
 
@@ -55,8 +47,7 @@ public class ProductService {
         return foundProduct;
     }
 
-    //Delete
-    public Optional<ProductEntity> deleteProduct(Long id){
+    public Optional<ProductEntity> deleteProduct(Long id) {
 
         Optional<ProductEntity> deleteProduct = productRepository.findById(id);
 

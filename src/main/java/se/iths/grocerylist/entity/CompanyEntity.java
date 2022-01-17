@@ -1,8 +1,6 @@
 package se.iths.grocerylist.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,6 +31,14 @@ public class CompanyEntity {
     public void addLayout (LayoutEntity layout){
         layouts.add(layout);
         layout.setCompanyEntity(this);
+    }
+
+    public Set<LayoutEntity> getLayouts() {
+        return layouts;
+    }
+
+    public void setLayouts(Set<LayoutEntity> layouts) {
+        this.layouts = layouts;
     }
 
     public Long getId() {

@@ -15,34 +15,29 @@ public class LayoutService {
         this.layoutRepository = layoutRepository;
     }
 
-    //Create
     public LayoutEntity createLayout(LayoutEntity layout) {
         return layoutRepository.save(layout);
     }
 
-    //Read id
     public Optional<LayoutEntity> findLayoutById(Long id) {
         return layoutRepository.findById(id);
     }
 
-    //Read all
-    public Iterable<LayoutEntity> findAllLayouts(){
+    public Iterable<LayoutEntity> findAllLayouts() {
         return layoutRepository.findAll();
     }
 
-    //Update type
-    public Optional<LayoutEntity> updateTypeOfLayout(Long id, String type){
+    public Optional<LayoutEntity> updateTypeOfLayout(Long id, String type) {
 
-      Optional<LayoutEntity> foundLayout = layoutRepository.findById(id);
+        Optional<LayoutEntity> foundLayout = layoutRepository.findById(id);
 
-      foundLayout.get().setType(type);
-      layoutRepository.save(foundLayout.get());
+        foundLayout.get().setType(type);
+        layoutRepository.save(foundLayout.get());
 
-      return foundLayout;
+        return foundLayout;
     }
 
-    //Delete
-    public Optional<LayoutEntity> deleteLayout(Long id){
+    public Optional<LayoutEntity> deleteLayout(Long id) {
 
         Optional<LayoutEntity> deleteLayout = layoutRepository.findById(id);
 

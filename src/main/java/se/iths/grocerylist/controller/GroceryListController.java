@@ -3,17 +3,12 @@ package se.iths.grocerylist.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import se.iths.grocerylist.entity.GroceryListEntity;
 import se.iths.grocerylist.entity.ProductEntity;
-import se.iths.grocerylist.entity.UserEntity;
 import se.iths.grocerylist.exception.BadRequestException;
 import se.iths.grocerylist.exception.EntityNotFoundException;
-import se.iths.grocerylist.exception.MethodNotAllowedException;
 import se.iths.grocerylist.mapper.GroceryListMapper;
 import se.iths.grocerylist.model.GroceryListModel;
-import se.iths.grocerylist.model.UserModel;
-import se.iths.grocerylist.repository.ProductRepository;
 import se.iths.grocerylist.service.GroceryListService;
 import se.iths.grocerylist.service.ProductService;
 
@@ -35,30 +30,22 @@ public class GroceryListController {
         this.groceryListMapper = groceryListMapper;
     }
 
-
-    //POST
     @PostMapping()
-    public ResponseEntity<GroceryListModel> createGroceryList( @RequestBody GroceryListModel groceryList) {
-
+    public ResponseEntity<GroceryListModel> createGroceryList(@RequestBody GroceryListModel groceryList) {
 
         if (groceryList.getName() == null || groceryList.getName().isEmpty()) {
-
             throw new BadRequestException("This field can not be empty. Enter name of grocerylist.");
         }
-       // GroceryListEntity createdGrocerylist = groceryListService.createGroceryList(groceryList);
 
         GroceryListEntity createdGrocerylist = groceryListService.createGroceryList(groceryListMapper.groceryListModelToGroceryListEntity(groceryList));
         GroceryListModel response = groceryListMapper.groceryListEntityToGroceryListModel(createdGrocerylist);
 
-        //return new ResponseEntity<>(createdGrocerylist, HttpStatus.CREATED);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
 
-
-
     @PostMapping("addproduct/{name}/{productname}")
-    public ResponseEntity<GroceryListEntity>addProductToList(@PathVariable String name, @PathVariable String productname){
+    public ResponseEntity<GroceryListEntity> addProductToList(@PathVariable String name, @PathVariable String productname) {
 
         Optional<ProductEntity> foundProduct = productService.findProductByName(productname);
 
@@ -68,8 +55,6 @@ public class GroceryListController {
 
     }
 
-
-    //GET id
     @GetMapping("{id}")
     public ResponseEntity<GroceryListModel> getGrocerylistById(@PathVariable Long id) {
 
@@ -84,7 +69,6 @@ public class GroceryListController {
         return new ResponseEntity<>(response, HttpStatus.FOUND);
     }
 
-//    //GET all
     @GetMapping()
     public ResponseEntity<Iterable<GroceryListModel>> getAllGroceryLists() {
 
@@ -95,7 +79,7 @@ public class GroceryListController {
             foundGrocerylists.add(grocerylist);
 
         if (foundGrocerylists.isEmpty()) {
-           throw new EntityNotFoundException("No grocerylists found.");
+            throw new EntityNotFoundException("No grocerylists found.");
         }
 
         Iterable<GroceryListModel> grocerylistsModels = groceryListMapper.allEntityToAllModels(foundGrocerylists);
@@ -103,8 +87,6 @@ public class GroceryListController {
         return new ResponseEntity<>(grocerylistsModels, HttpStatus.FOUND);
     }
 
-
-    //PATCH
     @PatchMapping("{id}")
     public ResponseEntity<GroceryListModel> updateNameOfGrocerylist(@PathVariable Long id, @RequestBody GroceryListModel name) {
 
@@ -124,8 +106,6 @@ public class GroceryListController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-
-    //REMOVE
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteGroceryList(@PathVariable Long id) {
 

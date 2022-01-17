@@ -30,7 +30,7 @@ public class RoleEntity {
         this.roleName = roleName;
     }
 
-    public void addUser(UserEntity user){
+    public void addUser(UserEntity user) {
         users.add(user);
     }
 
@@ -38,17 +38,6 @@ public class RoleEntity {
     public Set<UserEntity> getUsers() {
         return users;
     }
-
-//    public Set <String> getUserNames(){
-//        Set<String> userNames = new HashSet<>();
-//        for (String userNAme:
-//             ) {
-//
-//        }
-//
-//
-//        return
-//    }
 
     public void setUsers(Set<UserEntity> users) {
         this.users = users;
@@ -69,6 +58,5 @@ public class RoleEntity {
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
-
 
 }

@@ -19,7 +19,8 @@ public class MessageObject implements Serializable {
         this.localDateTime = localDateTime;
     }
 
-    public MessageObject(){}
+    public MessageObject() {
+    }
 
     public UUID getId() {
         return id;

@@ -12,12 +12,8 @@ import se.iths.grocerylist.repository.UserRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
-@SpringBootTest (webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class GroceryListApplicationTests {
-
-
 
     @LocalServerPort
     int port;
@@ -30,7 +26,7 @@ class GroceryListApplicationTests {
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 
-    void beforeTestLoadDatabaseWithUsers(String name){
+    void beforeTestLoadDatabaseWithUsers(String name) {
 
         String url = "http://localhost:" + port + "/users/signup";
 
@@ -42,7 +38,6 @@ class GroceryListApplicationTests {
 
     }
 
-
     @Test
     void makeAGetRequestWithoutLoginShouldReturnUnAuthorized() {
         String url = "http://localhost:" + port + "/users/{id}";
@@ -51,7 +46,6 @@ class GroceryListApplicationTests {
         var result = testClient.getForEntity(url, UserEntity.class, id);
 
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
-
 
     }
 
@@ -66,14 +60,12 @@ class GroceryListApplicationTests {
 
         long id = userRepository.findByUsername("johan").getId();
 
-        var result = testClient.exchange(url, HttpMethod.GET, new HttpEntity<>(headers),UserEntity.class,id);
+        var result = testClient.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), UserEntity.class, id);
 
         assertThat(result.getBody().getUsername().equals("johan"));
 
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.FOUND);
-
     }
-
 
     @Test
     void deleteUserShouldReturnNoContent() {
@@ -86,16 +78,13 @@ class GroceryListApplicationTests {
         headers.setBasicAuth("admin", "123");
 
         long id = userRepository.findByUsername("kalle").getId();
-       var  result = testClient.exchange(url, HttpMethod.DELETE, new HttpEntity<>(headers),UserEntity.class,id);
-
-
+        var result = testClient.exchange(url, HttpMethod.DELETE, new HttpEntity<>(headers), UserEntity.class, id);
 
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
-
     }
 
     @Test
-    void createdGrocerylistShoudeReturnStatusCreated(){
+    void createdGrocerylistShoudeReturnStatusCreated() {
 
         String url = "http://localhost:" + port + "/grocerylists";
 
@@ -103,9 +92,8 @@ class GroceryListApplicationTests {
         headers.setBasicAuth("admin", "123");
         headers.add("Content-Type", "application/json");
 
-
         GroceryListEntity groceryListEntity = new GroceryListEntity("Julmat");
-       var result = testClient.exchange(url, HttpMethod.POST, new HttpEntity<Object>(groceryListEntity, headers), GroceryListEntity.class);
+        var result = testClient.exchange(url, HttpMethod.POST, new HttpEntity<Object>(groceryListEntity, headers), GroceryListEntity.class);
 
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 

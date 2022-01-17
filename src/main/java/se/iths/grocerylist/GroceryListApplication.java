@@ -4,9 +4,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import se.iths.grocerylist.entity.*;
 import se.iths.grocerylist.repository.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 @SpringBootApplication
 public class GroceryListApplication {
 
@@ -17,11 +17,10 @@ public class GroceryListApplication {
     }
 
     @Bean
-    public CommandLineRunner setUpRole(RoleRepository roleRepository){
+    public CommandLineRunner setUpRole(RoleRepository roleRepository) {
         return (args) -> {
 
         };
     }
-
 
 }

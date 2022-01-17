@@ -24,28 +24,27 @@ public class GroceryListService {
     }
 
 
-    //Create
-    public GroceryListEntity createGroceryList( GroceryListEntity groceryListEntity) {
+    public GroceryListEntity createGroceryList(GroceryListEntity groceryListEntity) {
         return groceryListRepository.save(groceryListEntity);
     }
 
-    public GroceryListEntity addProductsToList(String groceryListName, ProductEntity product){
-        GroceryListEntity listToUpdate =  groceryListRepository.findByName(groceryListName);
+    public GroceryListEntity addProductsToList(String groceryListName, ProductEntity product) {
+        GroceryListEntity listToUpdate = groceryListRepository.findByName(groceryListName);
         listToUpdate.addProduct(product);
         groceryListRepository.save(listToUpdate);
 
         return listToUpdate;
     }
 
-    public GroceryListEntity removeProductsFromList(String groceryListName, ProductEntity product){
-        GroceryListEntity listToUpdate =  groceryListRepository.findByName(groceryListName);
+    public GroceryListEntity removeProductsFromList(String groceryListName, ProductEntity product) {
+        GroceryListEntity listToUpdate = groceryListRepository.findByName(groceryListName);
         listToUpdate.removeProduct(product);
         groceryListRepository.save(listToUpdate);
 
         return listToUpdate;
     }
 
-    public Set<ProductEntity> getProductsOnGrocerylist(String groceryListName){
+    public Set<ProductEntity> getProductsOnGrocerylist(String groceryListName) {
         GroceryListEntity foundGroceryList = groceryListRepository.findByName(groceryListName);
         return foundGroceryList.getProducts();
     }
@@ -53,17 +52,15 @@ public class GroceryListService {
     public GroceryListEntity getGroceryListByName(String name) {
         return groceryListRepository.findByName(name);
     }
-    //Read id
+
     public Optional<GroceryListEntity> getGroceryListById(Long id) {
         return groceryListRepository.findById(id);
     }
 
-    //Read all
     public Iterable<GroceryListEntity> findAllGroceryLists() {
         return groceryListRepository.findAll();
     }
 
-    //Update name
     public Optional<GroceryListEntity> updateName(Long id, String name) {
         Optional<GroceryListEntity> grocerylist = groceryListRepository.findById(id);
         grocerylist.get().setName(name);
@@ -72,7 +69,6 @@ public class GroceryListService {
         return grocerylist;
     }
 
-    //Delete
     public void removeGroceryList(Long id) {
         Optional<GroceryListEntity> groceryList = groceryListRepository.findById(id);
 

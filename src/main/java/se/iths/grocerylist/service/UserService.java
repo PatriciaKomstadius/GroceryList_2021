@@ -25,13 +25,6 @@ public class UserService {
 
     public UserEntity createUser(UserEntity user) {
 
-        //Defaultanvändare
-        // userRepository.save(new UserEntity("Customer1", "email", "a", "b", "123"));
-        // UserEntity customer1 = userRepository.findByUsername("Customer1");
-        //customer1.setPassword(passwordEncoder.encode(customer1.getPassword()));
-        // RoleEntity roleToAdd1 = roleRepository.findByRoleName("ROLE_CUSTOMER");
-        //  customer1.setRole(roleToAdd1);
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         RoleEntity roleToAdd = roleRepository.findByRoleName("ROLE_CUSTOMER");
         user.setRole(roleToAdd);
@@ -58,12 +51,10 @@ public class UserService {
 
     }
 
-
     public void deleteUser(Long id) {
         Optional<UserEntity> foundUser = userRepository.findById(id);
         userRepository.deleteById(foundUser.get().getId());
     }
-
 
 }
 

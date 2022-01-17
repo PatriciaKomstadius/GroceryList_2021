@@ -1,8 +1,8 @@
 
 package se.iths.grocerylist.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,8 +13,6 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-
     private String username;
     private String email;
     private String firstName;
@@ -26,7 +24,6 @@ public class UserEntity {
 
     @ManyToOne
     private RoleEntity role;
-
 
     public UserEntity() {
     }
@@ -53,7 +50,7 @@ public class UserEntity {
         return role;
     }
 
-    public void addGroceryList(GroceryListEntity grocerylist){
+    public void addGroceryList(GroceryListEntity grocerylist) {
         grocerylists.add(grocerylist);
     }
 

@@ -13,21 +13,20 @@ import java.util.Set;
 public class GroceryUserPrincipal implements UserDetails {
 
     private UserEntity userEntity;
-    public GroceryUserPrincipal(UserEntity userEntity){
+
+    public GroceryUserPrincipal(UserEntity userEntity) {
         super();
         this.userEntity = userEntity;
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         RoleEntity role = userEntity.getRole();
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>(1);
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getRoleName().toUpperCase()));
+        grantedAuthorities.add(new SimpleGrantedAuthority(role.getRoleName().toUpperCase()));
 
         return grantedAuthorities;
     }
-
 
     @Override
     public String getPassword() {

@@ -24,7 +24,6 @@ public class ProductEntity {
     @ManyToMany
     private Set<GroceryListEntity> grocerylists = new HashSet<>();
 
-
     public ProductEntity() {
     }
 
@@ -35,10 +34,11 @@ public class ProductEntity {
         this.quantity = quantity;
     }
 
-    public void addGroceryList(GroceryListEntity grocerylist){
-       grocerylists.add(grocerylist);
+    public void addGroceryList(GroceryListEntity grocerylist) {
+        grocerylists.add(grocerylist);
     }
-    public void removeGroceryList(GroceryListEntity grocerylist){
+
+    public void removeGroceryList(GroceryListEntity grocerylist) {
         grocerylists.remove(grocerylist);
     }
 

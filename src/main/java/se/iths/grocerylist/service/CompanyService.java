@@ -11,7 +11,7 @@ public class CompanyService {
 
     private final CompanyRepository companyRepository;
 
-    public CompanyService(CompanyRepository companyRepository){
+    public CompanyService(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
     }
 
@@ -20,20 +20,20 @@ public class CompanyService {
         return companyRepository.save(company);
     }
 
-    public Optional<CompanyEntity> findCompanyById (Long id){
+    public Optional<CompanyEntity> findCompanyById(Long id) {
         return companyRepository.findById(id);
     }
 
-    public Iterable<CompanyEntity> findAllCompanies(){
+    public Iterable<CompanyEntity> findAllCompanies() {
         return companyRepository.findAll();
     }
 
-    public CompanyEntity updateCompany(CompanyEntity company){
+    public CompanyEntity updateCompany(CompanyEntity company) {
         companyRepository.save(company);
         return company;
     }
 
-    public Optional<CompanyEntity> updateCompanyName(Long id, String companyName){
+    public Optional<CompanyEntity> updateCompanyName(Long id, String companyName) {
         Optional<CompanyEntity> foundCompany = companyRepository.findById(id);
         foundCompany.get().setCompanyName(companyName);
         companyRepository.save(foundCompany.get());
@@ -41,11 +41,9 @@ public class CompanyService {
 
     }
 
-    public void deleteCompany(Long id){
+    public void deleteCompany(Long id) {
         Optional<CompanyEntity> foundCompany = companyRepository.findById(id);
         companyRepository.deleteById(foundCompany.get().getId());
     }
-
-
 
 }

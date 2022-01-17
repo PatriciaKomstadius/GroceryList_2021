@@ -30,15 +30,15 @@ public class DepartmentEntity {
 
     }
 
-    public void addProduct(ProductEntity product){
+    public void addProduct(ProductEntity product) {
         products.add(product);
         product.setDepartment(this);
     }
 
-    public void addLayout(LayoutEntity layout){
+    public void addLayout(LayoutEntity layout) {
         layouts.add(layout);
         layout.getDepartments().add(this);
-            }
+    }
 
     @JsonIgnore
     public List<ProductEntity> getProducts() {
@@ -65,7 +65,7 @@ public class DepartmentEntity {
         this.departmentName = departmentName;
     }
 
-@JsonIgnore
+    @JsonIgnore
     public Set<LayoutEntity> getLayouts() {
         return layouts;
     }

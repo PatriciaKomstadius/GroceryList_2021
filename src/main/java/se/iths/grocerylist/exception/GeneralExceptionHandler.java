@@ -71,15 +71,4 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, errorMessage, exception));
     }
 
-
-    //Unauthorized 401
-    //Andreas
-
-    //Method Not Allowed
-    //Sofie
-
-    //Bad request
-    //Patricia
-
-
 }

@@ -36,9 +36,8 @@ public class ThymeLeafController {
     }
 
 
-
     @PostMapping("signup")
-    public String createUserThyme( @ModelAttribute("signup") UserModel user, Model model){
+    public String createUserThyme(@ModelAttribute("signup") UserModel user, Model model) {
 
         userService.createUser(userMapper.userModelToUserEntity(user));
         model.addAttribute("something", "user.getUsername()");
@@ -47,31 +46,16 @@ public class ThymeLeafController {
 
     }
 
-//    @GetMapping("/create")
-//    public String showCreateForm ( Model model) {
-//        ProductListCreationEntity groceryListForm = new ProductListCreationEntity();
-//        for(int i = 1; i<=3; i++){
-//            groceryListForm.addList(new GroceryListEntity());
-//        }
-//
-//        model.addAttribute("form", groceryListForm);
-//        return "createGrocerylistsForm";
-//    }
-
-    @PostMapping ("/save")
+    @PostMapping("/save")
     public String saveLists(@ModelAttribute ProductListCreationEntity form, Model model) {
 
         List<ProductEntity> products = form.getProductslist();
-        for (ProductEntity p: products) {
+        for (ProductEntity p : products) {
             Optional<ProductEntity> foundProduct = productService.findProductByName(p.getProductName());
-            if(!foundProduct.isEmpty()){
+            if (!foundProduct.isEmpty()) {
                 groceryListService.addProductsToList(form.getCurrentGroceryList(), foundProduct.get());
             }
-
         }
-
-
-       // productService.saveAll(form.getProductslist());
 
         model.addAttribute("currentlistname", form.getCurrentGroceryList());
         model.addAttribute("currentlistproducts", groceryListService.getProductsOnGrocerylist(form.getCurrentGroceryList()));
@@ -80,13 +64,13 @@ public class ThymeLeafController {
 
 
     @PostMapping("/edit")
-    public String editGroceryListThyme(@ModelAttribute("name") String name, Model model){
-        model.addAttribute("currentlistname",name);
+    public String editGroceryListThyme(@ModelAttribute("name") String name, Model model) {
+        model.addAttribute("currentlistname", name);
 
         ProductListCreationEntity productListForm = new ProductListCreationEntity();
         productListForm.setCurrentGroceryList(name);
 
-        for(int i = 1; i<=8; i++){
+        for (int i = 1; i <= 8; i++) {
             productListForm.addList(new ProductEntity());
         }
 
@@ -102,17 +86,15 @@ public class ThymeLeafController {
     @PostMapping()
     public String createGroceryListThyme(@ModelAttribute("groceryListModel") GroceryListModel groceryListModel, Model model) {
 
-
         System.out.println("LIST FROM UI = " + groceryListModel);
         groceryListService.createGroceryList(groceryListMapper.groceryListModelToGroceryListEntity(groceryListModel));
-
 
         model.addAttribute("currentlistname", groceryListModel.getName());
 
         ProductListCreationEntity productListForm = new ProductListCreationEntity();
         productListForm.setCurrentGroceryList(groceryListModel.getName());
         System.out.println(productListForm.getCurrentGroceryList());
-        for(int i = 1; i<=8; i++){
+        for (int i = 1; i <= 8; i++) {
             productListForm.addList(new ProductEntity());
         }
 
@@ -122,16 +104,14 @@ public class ThymeLeafController {
         model.addAttribute("currentlistproducts", groceryListService.getProductsOnGrocerylist(groceryListModel.getName()));
         return "currentlist";
 
-
-
     }
 
     @PostMapping("addproduct")
-    public void addProductToListThyme(@ModelAttribute("name") String name, @ModelAttribute("productName")String productName){
+    public void addProductToListThyme(@ModelAttribute("name") String name, @ModelAttribute("productName") String productName) {
 
         Optional<ProductEntity> foundProduct = productService.findProductByName(productName);
 
-        if(!foundProduct.isEmpty()){
+        if (!foundProduct.isEmpty()) {
             GroceryListEntity updatedList = groceryListService.addProductsToList(name, foundProduct.get());
         }
 
@@ -142,7 +122,6 @@ public class ThymeLeafController {
     public String getAllGroceryListsThyme(Model model) {
 
         model.addAttribute("grocerylists", groceryListService.findAllGroceryLists());
-
 
         return "allgrocerylists";
     }
@@ -161,14 +140,13 @@ public class ThymeLeafController {
     }
 
     @GetMapping("deleteproduct")
-    public String deleteProductFromGroceryListThyme(@RequestParam ("listname") String listName, @RequestParam("productname") String productName, Model model) {
+    public String deleteProductFromGroceryListThyme(@RequestParam("listname") String listName, @RequestParam("productname") String productName, Model model) {
 
         Optional<ProductEntity> foundProduct = productService.findProductByName(productName);
         groceryListService.removeProductsFromList(listName, foundProduct.get());
 
         model.addAttribute("currentlistname", listName);
         model.addAttribute("currentlistproducts", groceryListService.getProductsOnGrocerylist(listName));
-
 
         return "currentlistwithproducts";
     }
@@ -179,10 +157,7 @@ public class ThymeLeafController {
 
         GroceryListEntity foundGrocerylist = groceryListService.getGroceryListByName(name);
 
-
         groceryListService.removeGroceryList(foundGrocerylist.getId());
-
-
 
         return "redirect:/application";
     }

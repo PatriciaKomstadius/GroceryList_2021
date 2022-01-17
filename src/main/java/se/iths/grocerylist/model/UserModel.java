@@ -14,9 +14,7 @@ public class UserModel {
     private String firstName;
     private String lastName;
     private String password;
-
     private Set<GroceryListModel> grocerylists = new HashSet<>();
-
 
     public UserModel() {
     }
@@ -27,13 +25,15 @@ public class UserModel {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-
     }
 
+    public Long getId() {
+        return id;
+    }
 
-    public Long getId(){ return id; }
-
-    public void setId(Long id){ this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -58,7 +58,6 @@ public class UserModel {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
 
     public String getPassword() {
         return password;

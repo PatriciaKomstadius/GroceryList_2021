@@ -25,7 +25,6 @@ public class CompanyInfoEntity {
        this.address = address;
         this.zipCode = zipCode;
          this.city = city;
-
     }
 
 

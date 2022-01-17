@@ -2,9 +2,7 @@ package se.iths.grocerylist.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import se.iths.grocerylist.entity.ProductEntity;
 import se.iths.grocerylist.entity.RoleEntity;
 import se.iths.grocerylist.exception.BadRequestException;
 import se.iths.grocerylist.exception.EntityNotFoundException;
@@ -24,15 +22,15 @@ public class RoleController {
     private final RoleService roleService;
     private final RoleMapper roleMapper;
 
-    public RoleController (RoleService roleService, RoleMapper roleMapper){
+    public RoleController(RoleService roleService, RoleMapper roleMapper) {
         this.roleService = roleService;
         this.roleMapper = roleMapper;
     }
 
     @PostMapping()
-    public ResponseEntity<RoleModel> createRole (@Valid @RequestBody RoleModel role){
+    public ResponseEntity<RoleModel> createRole(@Valid @RequestBody RoleModel role) {
 
-        if(role.getRoleName()==null || role.getRoleName().isEmpty()){
+        if (role.getRoleName() == null || role.getRoleName().isEmpty()) {
             throw new BadRequestException("roleName cannot be empty");
         }
 
@@ -42,10 +40,10 @@ public class RoleController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<RoleModel>findRoleById(@PathVariable Long id){
+    public ResponseEntity<RoleModel> findRoleById(@PathVariable Long id) {
         Optional<RoleEntity> foundRole = roleService.findRoleById(id);
 
-        if(foundRole.isEmpty()){
+        if (foundRole.isEmpty()) {
             throw new EntityNotFoundException(responseMessage(id));
         }
 
@@ -55,10 +53,10 @@ public class RoleController {
     }
 
     @GetMapping()
-    public ResponseEntity<Iterable<RoleModel>>findAllRoles(){
+    public ResponseEntity<Iterable<RoleModel>> findAllRoles() {
         Iterable<RoleEntity> allRoles = roleService.findAllRoles();
 
-        if (!allRoles.iterator().hasNext()){
+        if (!allRoles.iterator().hasNext()) {
             throw new EntityNotFoundException("There are no roles registered in the database");
         }
 
@@ -68,12 +66,12 @@ public class RoleController {
     }
 
     @PutMapping()
-    public ResponseEntity<RoleModel>updateRole(@RequestBody RoleModel role){
+    public ResponseEntity<RoleModel> updateRole(@RequestBody RoleModel role) {
 
-        if(role.getId()==null){
+        if (role.getId() == null) {
             throw new MethodNotAllowedException("You need to specify ID on product to be updated");
         }
-        if(roleService.findRoleById(role.getId()).isEmpty()){
+        if (roleService.findRoleById(role.getId()).isEmpty()) {
             throw new EntityNotFoundException(responseMessage(role.getId()));
         }
 
@@ -84,10 +82,10 @@ public class RoleController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity<RoleModel> updateRoleName(@PathVariable Long id, @RequestBody RoleModel newUpdatedRole){
+    public ResponseEntity<RoleModel> updateRoleName(@PathVariable Long id, @RequestBody RoleModel newUpdatedRole) {
 
-        Optional<RoleEntity>updatedRole = roleService.updateRoleName(id, newUpdatedRole.getRoleName());
-        if(updatedRole.isEmpty()){
+        Optional<RoleEntity> updatedRole = roleService.updateRoleName(id, newUpdatedRole.getRoleName());
+        if (updatedRole.isEmpty()) {
             throw new EntityNotFoundException(responseMessage(id));
         }
         RoleModel response = roleMapper.roleEntityToRoleModel(updatedRole.get());
@@ -95,23 +93,18 @@ public class RoleController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void>deleteRole(@PathVariable Long id){
+    public ResponseEntity<Void> deleteRole(@PathVariable Long id) {
 
-        if(roleService.findRoleById(id).isEmpty()){
+        if (roleService.findRoleById(id).isEmpty()) {
             throw new EntityNotFoundException(responseMessage(id));
         }
-
         roleService.deleteUser(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
     private String responseMessage(Long id) {
         return "There is no role with ID " + id + " in database.";
     }
-
-
-
 
 }

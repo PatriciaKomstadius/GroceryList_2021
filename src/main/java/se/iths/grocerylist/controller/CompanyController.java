@@ -75,12 +75,10 @@ public class CompanyController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteCompany(@PathVariable Long id) {
         companyService.deleteCompany(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 
 }

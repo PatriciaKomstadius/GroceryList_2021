@@ -23,7 +23,7 @@ public class ProductListCreationEntity {
         this.currentGroceryList = currentGroceryList;
     }
 
-    public void addList(ProductEntity product){
+    public void addList(ProductEntity product) {
         this.productslist.add(product);
     }
 

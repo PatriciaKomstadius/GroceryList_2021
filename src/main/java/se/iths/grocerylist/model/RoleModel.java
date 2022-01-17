@@ -1,7 +1,5 @@
 package se.iths.grocerylist.model;
 
-import javax.validation.constraints.NotNull;
-
 public class RoleModel {
     private Long id;
     private String roleName;
@@ -33,7 +31,6 @@ public class RoleModel {
     @Override
     public String toString() {
         return "RoleModel{" +
-                "id=" + id +
                 ", roleName='" + roleName + '\'' +
                 '}';
     }

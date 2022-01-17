@@ -12,7 +12,7 @@ public class GroceryUserDetailsService implements UserDetailsService {
 
     private UserRepository userRepository;
 
-    public GroceryUserDetailsService(UserRepository userRepository){
+    public GroceryUserDetailsService(UserRepository userRepository) {
         super();
         this.userRepository = userRepository;
     }
@@ -20,7 +20,7 @@ public class GroceryUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity user = userRepository.findByUsername(username);
-        if(user==null){
+        if (user == null) {
             System.out.println("Can´t find user with username: " + username);
         }
 

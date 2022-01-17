@@ -1,6 +1,5 @@
 package se.iths.grocerylist.controller;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,26 +26,21 @@ public class LayoutController {
     public LayoutController(LayoutService layoutService, LayoutMapper layoutMapper) {
         this.layoutService = layoutService;
         this.layoutMapper = layoutMapper;
-
     }
 
-    //POST
     @PostMapping()
     public ResponseEntity<LayoutModel> createLayout(@RequestBody LayoutModel layout) {
 
         if (layout.getType() == null || layout.getType().isEmpty()) {
             throw new BadRequestException("Layout type can not be empty.");
         }
-      //  LayoutEntity createdLayout = layoutService.createLayout(layout);
 
         LayoutEntity createdLayout = layoutService.createLayout(layoutMapper.layoutModelToLayoutEntity(layout));
         LayoutModel response = layoutMapper.layoutEntityToLayoutModel(createdLayout);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
-        //return new ResponseEntity<>(createdLayout, HttpStatus.CREATED);
     }
 
-    //GET id
     @GetMapping("{id}")
     public ResponseEntity<LayoutModel> findLayoutById(@PathVariable Long id) {
 
@@ -61,7 +55,6 @@ public class LayoutController {
         return new ResponseEntity<>(response, HttpStatus.FOUND);
     }
 
-    //GET all
     @GetMapping()
     public ResponseEntity<Iterable<LayoutModel>> findAllLayouts() {
 
@@ -79,13 +72,12 @@ public class LayoutController {
         return new ResponseEntity<>(allLayoutModels, HttpStatus.FOUND);
     }
 
-    //PATCH
     @PatchMapping("{id}")
     public ResponseEntity<LayoutModel> updateType(@PathVariable Long id, @RequestBody LayoutModel type) {
 
         Optional<LayoutEntity> foundLayout = layoutService.findLayoutById(id);
 
-        if(foundLayout.isEmpty()){
+        if (foundLayout.isEmpty()) {
             throw new EntityNotFoundException("Layout with id " + id + " doesn't exist in database.");
         }
         if (type.getType() == null || type.getType().isEmpty()) {
@@ -97,24 +89,20 @@ public class LayoutController {
         LayoutModel response = layoutMapper.layoutEntityToLayoutModel(updatedLayout.get());
 
         return new ResponseEntity<>(response, HttpStatus.OK);
-
     }
 
-    //REMOVE
+
     @DeleteMapping("{id}")
     public ResponseEntity<LayoutEntity> deleteLayout(@PathVariable Long id) {
 
         Optional<LayoutEntity> foundLayout = layoutService.findLayoutById(id);
 
-        if(foundLayout.isEmpty()) {
+        if (foundLayout.isEmpty()) {
             throw new EntityNotFoundException("Layout with id " + id + "doens't exist in databse. Couldn't fulfill the request.");
         }
 
-        //Optional<LayoutEntity> deletedLayout =
-                layoutService.deleteLayout(id);
+        layoutService.deleteLayout(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
     }
-
 }

@@ -29,19 +29,19 @@ public class GroceryListEntity {
         this.name = name;
     }
 
-    public void addProduct(ProductEntity product){
+    public void addProduct(ProductEntity product) {
         products.add(product);
         product.addGroceryList(this);
 
     }
 
-    public void removeProduct(ProductEntity product){
+    public void removeProduct(ProductEntity product) {
         products.remove(product);
         product.removeGroceryList(this);
 
     }
 
-    public void addUser(UserEntity user){
+    public void addUser(UserEntity user) {
         users.add(user);
         user.addGroceryList(this);
 
@@ -63,7 +63,7 @@ public class GroceryListEntity {
         this.name = name;
     }
 
-//    @JsonIgnore
+    //    @JsonIgnore
     public Set<UserEntity> getUsers() {
         return users;
     }

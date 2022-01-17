@@ -23,26 +23,25 @@ public class UserController {
     private final Sender sender;
     private final UserMapper userMapper;
 
-    public UserController(UserService userService, Sender sender, UserMapper userMapper){
+    public UserController(UserService userService, Sender sender, UserMapper userMapper) {
         this.userService = userService;
         this.sender = sender;
         this.userMapper = userMapper;
     }
 
     @PostMapping("signup")
-    public ResponseEntity<UserModel> createUser( /*@ModelAttribute("signup")*/ @RequestBody UserModel user ){
+    public ResponseEntity<UserModel> createUser(@RequestBody UserModel user) {
 
-
-        if(user.getUsername()==null || user.getUsername().isEmpty()){
-            throw new BadRequestException("Username cannot be empty" );
+        if (user.getUsername() == null || user.getUsername().isEmpty()) {
+            throw new BadRequestException("Username cannot be empty");
         }
 
-        if(user.getEmail()==null || user.getEmail().isEmpty()) {
+        if (user.getEmail() == null || user.getEmail().isEmpty()) {
 
             throw new BadRequestException("Email cannot be empty");
         }
 
-        if(user.getPassword()==null || user.getPassword().isEmpty()) {
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
 
             throw new BadRequestException("Password cannot be empty");
         }
@@ -56,43 +55,43 @@ public class UserController {
 
 
     @GetMapping("{id}")
-    public ResponseEntity<UserModel> findUserById(@PathVariable Long id){
+    public ResponseEntity<UserModel> findUserById(@PathVariable Long id) {
 
-            Optional<UserEntity> foundUser = userService.findUserById(id);
+        Optional<UserEntity> foundUser = userService.findUserById(id);
 
-            if (foundUser.isEmpty()) {
-                throw new EntityNotFoundException("Fel");
-            }
+        if (foundUser.isEmpty()) {
+            throw new EntityNotFoundException("Fel");
+        }
 
-            UserModel response = userMapper.userEntityToUserModel(foundUser.get());
+        UserModel response = userMapper.userEntityToUserModel(foundUser.get());
 
-            return new ResponseEntity<>(response, HttpStatus.FOUND);
+        return new ResponseEntity<>(response, HttpStatus.FOUND);
 
 
     }
 
     @GetMapping()
-    public ResponseEntity<Iterable<UserModel>> findAllUsers(){
+    public ResponseEntity<Iterable<UserModel>> findAllUsers() {
 
-            Iterable<UserEntity> allUsers = userService.findAllUsers();
+        Iterable<UserEntity> allUsers = userService.findAllUsers();
 
-            if(!allUsers.iterator().hasNext()){
-                throw new EntityNotFoundException("There are no registered users in the database.");
-            }
+        if (!allUsers.iterator().hasNext()) {
+            throw new EntityNotFoundException("There are no registered users in the database.");
+        }
 
-            Iterable<UserModel> allUsersModels = userMapper.allEntityToAllModels(allUsers);
+        Iterable<UserModel> allUsersModels = userMapper.allEntityToAllModels(allUsers);
 
-            return new ResponseEntity<>(allUsersModels, HttpStatus.FOUND);
+        return new ResponseEntity<>(allUsersModels, HttpStatus.FOUND);
 
     }
 
     @PutMapping()
-    public ResponseEntity<UserModel>updateUser(@RequestBody UserModel user) {
+    public ResponseEntity<UserModel> updateUser(@RequestBody UserModel user) {
 
-        if(user.getId()==null){
+        if (user.getId() == null) {
             throw new MethodNotAllowedException("You need to specify ID on user to be updated");
         }
-        if(userService.findUserById(user.getId()).isEmpty()){
+        if (userService.findUserById(user.getId()).isEmpty()) {
             throw new EntityNotFoundException(responseMessage(user.getId()));
         }
 
@@ -103,11 +102,11 @@ public class UserController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity<UserModel> updateUserEmail(@PathVariable Long id, @RequestBody UserModel user){
+    public ResponseEntity<UserModel> updateUserEmail(@PathVariable Long id, @RequestBody UserModel user) {
 
         Optional<UserEntity> updatedUser = userService.updateUserEmail(id, user.getEmail());
 
-        if(updatedUser.isEmpty()){
+        if (updatedUser.isEmpty()) {
             throw new EntityNotFoundException(responseMessage(id));
         }
         UserModel response = userMapper.userEntityToUserModel(updatedUser.get());
@@ -116,9 +115,9 @@ public class UserController {
 
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
 
-        if(userService.findUserById(id).isEmpty()){
+        if (userService.findUserById(id).isEmpty()) {
             throw new EntityNotFoundException(responseMessage(id));
         }
 
@@ -126,10 +125,8 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
     private String responseMessage(Long id) {
         return "There is no user with ID " + id + " in database.";
     }
-
 
 }

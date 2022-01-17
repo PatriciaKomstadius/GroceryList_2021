@@ -1,6 +1,5 @@
 package se.iths.grocerylist.controller;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +13,6 @@ import se.iths.grocerylist.service.ProductService;
 
 import java.util.Optional;
 
-
 @RestController
 @RequestMapping("products")
 public class ProductController {
@@ -27,33 +25,25 @@ public class ProductController {
         this.productMapper = productMapper;
     }
 
-    //POST
     @PostMapping()
-    public ResponseEntity<ProductModel> createProduct(/*@ModelAttribute ("productEntity")*/ @RequestBody ProductModel product ) {
+    public ResponseEntity<ProductModel> createProduct(@RequestBody ProductModel product) {
 
         if (product.getProductName() == null || product.getProductName().isEmpty()) {
             throw new BadRequestException("productName cannot be empty!");
-        }
-        if (product.getCategory() == null || product.getCategory().isEmpty()) {
-            throw new BadRequestException("category cannot be empty");
-        }
-        if (product.getPrice() <= 0) {
-            throw new BadRequestException("price cannot be empty or below 0");
         }
 
         ProductEntity createdProduct = productService.createProduct(productMapper.productModelToProductEntity(product));
         ProductModel response = productMapper.productEntityToProductModel(createdProduct);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
-
     }
 
-    //GET id
+
     @GetMapping("{id}")
     public ResponseEntity<ProductModel> getProductById(@PathVariable Long id) {
 
         Optional<ProductEntity> foundProduct = productService.findProductById(id);
 
-        if(foundProduct.isEmpty()){
+        if (foundProduct.isEmpty()) {
             throw new EntityNotFoundException(responseMessage(id));
         }
 
@@ -61,14 +51,11 @@ public class ProductController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-
-
-    //GET all
     @GetMapping()
     public ResponseEntity<Iterable<ProductModel>> getAllProducts() {
         Iterable<ProductEntity> products = productService.findAllProducts();
 
-        if(!products.iterator().hasNext()){
+        if (!products.iterator().hasNext()) {
             throw new EntityNotFoundException("There are no products registered in the database.");
         }
 
@@ -77,14 +64,13 @@ public class ProductController {
         return new ResponseEntity<>(allProductModels, HttpStatus.FOUND);
     }
 
-    //PUT
     @PutMapping()
     public ResponseEntity<ProductModel> updateProduct(@RequestBody ProductModel product) {
 
-        if(product.getId()==null){
+        if (product.getId() == null) {
             throw new MethodNotAllowedException("You need to specify ID on product to be updated");
         }
-        if(productService.findProductById(product.getId()).isEmpty()){
+        if (productService.findProductById(product.getId()).isEmpty()) {
             throw new EntityNotFoundException(responseMessage(product.getId()));
         }
 
@@ -94,13 +80,12 @@ public class ProductController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    //PATCH
     @PatchMapping("{id}")
     public ResponseEntity<ProductModel> updatePriceOfProduct(@PathVariable Long id, @RequestBody ProductModel price) {
 
         Optional<ProductEntity> updatedProduct = productService.updatePriceOfProduct(id, price.getPrice());
 
-        if(updatedProduct.isEmpty()){
+        if (updatedProduct.isEmpty()) {
             throw new EntityNotFoundException(responseMessage(id));
         }
         ProductModel response = productMapper.productEntityToProductModel(updatedProduct.get());
@@ -108,11 +93,10 @@ public class ProductController {
     }
 
 
-    //REMOVE
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
 
-        if(productService.findProductById(id).isEmpty()){
+        if (productService.findProductById(id).isEmpty()) {
             throw new EntityNotFoundException(responseMessage(id));
         }
 
@@ -120,9 +104,7 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
     private String responseMessage(Long id) {
         return "There is no product with ID " + id + " in database.";
     }
 }
-
