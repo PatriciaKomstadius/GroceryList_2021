@@ -15,7 +15,7 @@ public class UserModel {
     private String lastName;
     private String password;
 
-    private Set<GroceryListEntity> grocerylists = new HashSet<>();
+    private Set<GroceryListModel> grocerylists = new HashSet<>();
 
 
     public UserModel() {
@@ -76,11 +76,11 @@ public class UserModel {
         this.lastName = lastName;
     }
 
-    public Set<GroceryListEntity> getGrocerylists() {
+    public Set<GroceryListModel> getGrocerylists() {
         return grocerylists;
     }
 
-    public void setGrocerylists(Set<GroceryListEntity> grocerylists) {
+    public void setGrocerylists(Set<GroceryListModel> grocerylists) {
         this.grocerylists = grocerylists;
     }
 

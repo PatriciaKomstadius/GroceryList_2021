@@ -112,9 +112,9 @@ import javax.transaction.Transactional;
 
 
 
-            UserEntity findUser = userRepository.findByUsername("admin");
+            UserEntity adm = userRepository.findByUsername("admin");
             RoleEntity roleToAdd = roleRepository.findByRoleName("ROLE_ADMIN");
-            findUser.setRole(roleToAdd);
+            adm.setRole(roleToAdd);
 
             UserEntity cust = userRepository.findByUsername("customer");
             roleToAdd = roleRepository.findByRoleName("ROLE_CUSTOMER");
@@ -124,7 +124,7 @@ import javax.transaction.Transactional;
             roleToAdd = roleRepository.findByRoleName("ROLE_EMPLOYEE");
             emp.setRole(roleToAdd);
 
-            userRepository.save(findUser);
+            userRepository.save(adm);
             userRepository.save(emp);
             userRepository.save(cust);
 
@@ -135,7 +135,7 @@ import javax.transaction.Transactional;
             groceryList1.addProduct(lax);
             groceryList1.addProduct(banan);
 
-            groceryList1.addUser(findUser);
+            groceryList1.addUser(adm);
             groceryList1.addUser(cust);
             groceryList1.addUser(emp);
 

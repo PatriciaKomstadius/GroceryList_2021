@@ -15,7 +15,7 @@ Login as user, admin or employee to make CRUD operations to your grocerylist and
 
 > To enter your account go to: http://localhost:8080/application
 > 
-> To sign up for an account go to: http://localhost:8080/users/signup
+> To sign up for an account go to: http://localhost:8080/signup
 
 
 ----OBS VAD ÄR RÄTT LÄNK?!
